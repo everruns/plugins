@@ -1,0 +1,69 @@
+---
+name: everruns-debug-session
+description: Find out why an Everruns session failed, stalled, looped, cost too much or gave a bad answer, by reading its status, event log, tool calls and the agent's configuration history. Use when the user shares a session link or id, or reports that an agent misbehaved.
+---
+
+# Debug an Everruns session
+
+Commands below are the `everruns` command language (see the `everruns` skill).
+Everything here is read-only, so run it with the CLI or MCP `query`.
+
+## 1. Get the session id
+
+From a link `https://app.everruns.com/sessions/<session_id>/…`, or list recent
+ones: `everruns sessions list --limit 20`. If the id belongs to another
+organization the user is in, `everruns orgs resolve <session_id>` names it.
+
+## 2. Read the state
+
+```bash
+everruns sessions get <session_id> | jq '{status, agent_id, harness_id, model_id, title}'
+everruns sessions events summary events --session-id <session_id>
+```
+
+The summary gives counts by event type, the time span, turns and errors. Status
+meanings: `active` is working, `idle` is waiting for a user message,
+`waiting_for_tool_results` is blocked on a client-side tool or approval,
+`paused` was stopped on purpose.
+
+## 3. Read the events around the problem
+
+```bash
+everruns sessions events list --session-id <session_id> --limit 50 --order-desc
+everruns sessions events list --session-id <session_id> --types turn.failed,tool.completed
+everruns sessions events list --session-id <session_id> --tool-name web_fetch
+```
+
+`--types` takes a comma-separated list; the summary shows which types this
+session has. Other filters: see `--help`
+(`--turn-id`, `--q`, `--around`, `--since-id`). Look for, in order:
+
+1. **Errors**: model provider errors, tool errors, `connection_required`
+   (the user must connect an account: MCP `connect`), budget stops.
+2. **A tool that kept failing or was called in a loop**: usually missing
+   credentials, a wrong argument shape, or instructions that do not say when
+   to stop.
+3. **A tool the agent never had**: compare the tools it tried with what
+   `everruns agents preview` resolves for its configuration.
+4. **A question or approval nobody answered**: the session waits on the user.
+   Over MCP, `everruns_home` shows what is pending.
+
+## 4. Check whether the agent changed
+
+```bash
+everruns history list <agent_id> --limit 10
+everruns history diff --help
+```
+
+A recent change with a `reason` often explains a new behavior. `history
+restore` can roll back, but that is a change: confirm with the user first.
+
+## 5. Report
+
+Lead with the cause in one or two sentences, with the event or change that
+shows it, then the fix (instructions, capability, credential, model) and
+whether you applied it. Link the session: `https://app.everruns.com/sessions/<id>/events`.
+
+For agents with recurring problems, `everruns health-issues list` and
+`everruns agents health-checks list --agent-id <id>` show what Everruns has
+already flagged.

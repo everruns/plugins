@@ -1,0 +1,42 @@
+{
+  "name": "everruns",
+  "owner": {
+    "name": "Everruns",
+    "email": "support@everruns.com",
+    "url": "https://everruns.com"
+  },
+  "metadata": {
+    "description": "Official Everruns plugins for coding agents."
+  },
+  "plugins": [
+    {
+      "name": "everruns",
+      "description": "Build, run and debug Everruns agents from your coding agent: create agents, run sessions, keep agents as files in your repo, and ship them to Slack, the web and other channels.",
+      "version": "0.2.0",
+      "author": {
+        "name": "Everruns",
+        "email": "support@everruns.com",
+        "url": "https://everruns.com"
+      },
+      "homepage": "https://docs.everruns.com/getting-started/use-in-ai-tools/",
+      "repository": "https://github.com/everruns/plugins",
+      "license": "MIT",
+      "keywords": [
+        "everruns",
+        "agents",
+        "ai-agents",
+        "mcp",
+        "durable-execution",
+        "agent-platform"
+      ],
+      "source": "./plugins/everruns",
+      "logo": "plugins/everruns/assets/everruns.png",
+      "category": "agents",
+      "tags": [
+        "agents",
+        "automation",
+        "developer-tools"
+      ]
+    }
+  ]
+}

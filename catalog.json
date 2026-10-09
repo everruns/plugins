@@ -1,0 +1,33 @@
+{
+  "$comment": "Source of truth for marketplace listings and per-host plugin metadata. Run `node scripts/build.mjs` after editing; CI fails when generated files are stale.",
+  "marketplace": {
+    "name": "everruns",
+    "displayName": "Everruns",
+    "description": "Official Everruns plugins for coding agents.",
+    "owner": {
+      "name": "Everruns",
+      "email": "support@everruns.com",
+      "url": "https://everruns.com"
+    }
+  },
+  "gemini": "plugins/everruns",
+  "plugins": [
+    {
+      "path": "plugins/everruns",
+      "displayName": "Everruns",
+      "category": "Agents",
+      "tags": ["agents", "automation", "developer-tools"],
+      "logo": "assets/everruns.png",
+      "codex": {
+        "shortDescription": "Build, run, debug and ship Everruns agents.",
+        "longDescription": "Use Everruns from Codex to create and change agents, run and inspect sessions, keep agent definitions as files in your repository, and publish agents to Slack, the web, A2A and other channels. Signs in to Everruns Cloud with OAuth.",
+        "capabilities": ["Interactive", "Write"],
+        "defaultPrompt": [
+          "Create an Everruns agent that summarizes Hacker News every morning, run it once, and show me the result."
+        ],
+        "brandColor": "#D4A43A",
+        "composerIcon": "assets/everruns-small.svg"
+      }
+    }
+  ]
+}

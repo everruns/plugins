@@ -1,0 +1,42 @@
+{
+  "name": "everruns",
+  "version": "0.2.0",
+  "description": "Build, run and debug Everruns agents from your coding agent: create agents, run sessions, keep agents as files in your repo, and ship them to Slack, the web and other channels.",
+  "author": {
+    "name": "Everruns",
+    "email": "support@everruns.com",
+    "url": "https://everruns.com"
+  },
+  "homepage": "https://docs.everruns.com/getting-started/use-in-ai-tools/",
+  "repository": "https://github.com/everruns/plugins",
+  "license": "MIT",
+  "keywords": [
+    "everruns",
+    "agents",
+    "ai-agents",
+    "mcp",
+    "durable-execution",
+    "agent-platform"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Everruns",
+    "shortDescription": "Build, run, debug and ship Everruns agents.",
+    "longDescription": "Use Everruns from Codex to create and change agents, run and inspect sessions, keep agent definitions as files in your repository, and publish agents to Slack, the web, A2A and other channels. Signs in to Everruns Cloud with OAuth.",
+    "developerName": "Everruns",
+    "category": "Agents",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "https://everruns.com",
+    "defaultPrompt": [
+      "Create an Everruns agent that summarizes Hacker News every morning, run it once, and show me the result."
+    ],
+    "brandColor": "#D4A43A",
+    "composerIcon": "./assets/everruns-small.svg",
+    "logo": "./assets/everruns.png",
+    "screenshots": []
+  }
+}
