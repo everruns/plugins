@@ -20,12 +20,16 @@ that load only when a task needs them:
 
 | Skill | Your agent can… |
 |---|---|
-| `everruns` | Use Everruns at all: concepts, the `everruns <noun> <verb>` command language, sign-in, organizations, change history, secrets, links |
-| `everruns-build-agent` | Create or change an agent from a plain-language description, preview it, and test it with a real message |
+| `everruns` | Use Everruns at all: concepts, the MCP tools and the `everruns <noun> <verb>` command language, safe changes, secrets, links, and which skill to load next |
+| `everruns-run-agent` | Hand a task to one of your Everruns agents, follow it, pass files in and out, and bring the result back |
+| `everruns-build-agent` | Create or change an agent from a plain-language description, give it knowledge and skills, and test it with a real message |
+| `everruns-debug-session` | Explain why a session failed, stalled or gave a bad answer, fix it, and keep it fixed |
+| `everruns-evaluate-agent` | Prove an agent works with evals built from real sessions, compare models, and score live traffic |
+| `everruns-ship-agent` | Put an agent in front of people: Slack, web chat, A2A, webhooks, schedules and GitHub events, with a budget and a kill switch |
+| `everruns-operate` | Answer what was spent, what is broken and who changed what across your organization |
 | `everruns-agents-as-files` | Keep agents as `agent.toml` folders in your repository, and validate, diff, import and export them |
-| `everruns-debug-session` | Explain why a session failed, stalled or gave a bad answer, from its events and history |
-| `everruns-ship-agent` | Put an agent in front of people: Slack, web chat, A2A, webhooks, schedules and GitHub events |
-| `everruns-framework` | Write code with the `everruns` Rust crate, `everruns-serve`, or the Rust, Python and TypeScript SDKs |
+| `everruns-sdk` | Call Everruns from your app with the Python, TypeScript and Rust SDKs |
+| `everruns-framework` | Run agents inside your own Rust program with the `everruns` crate or `everruns-serve` |
 
 ## Install
 
@@ -76,17 +80,18 @@ gemini extensions install https://github.com/everruns/plugins
 ## First run
 
 1. Ask: "Who am I on Everruns?" Your host opens the browser to sign in.
-2. Then ask for real work: "List my Everruns agents", "Why did
-   https://app.everruns.com/sessions/… fail?", "Export the triage agent into
-   `agents/triage`".
+2. Then ask for real work: "Ask my research agent to summarize this repo",
+   "Why did https://app.everruns.com/sessions/… fail?", "How much did our
+   agents spend this week?", "Export the triage agent into `agents/triage`".
 
 ## Works even better with the CLI
 
-Everything Everruns can do is one command language,
-`everruns <noun> <verb> --flags`. The plugin's MCP server runs those commands
-for your agent; if the [`everruns` CLI](https://docs.everruns.com/features/cli/)
-is installed and signed in, the skills use it directly instead, which is
-faster and needs no tool schemas.
+The plugin needs nothing but the MCP server: it works in chat apps without a
+shell. Under the hood, everything Everruns can do is one command language,
+`everruns <noun> <verb> --flags`, which the MCP server runs for your agent. If
+the [`everruns` CLI](https://docs.everruns.com/features/cli/) is installed and
+signed in, the skills use it directly instead, which is faster, needs no tool
+schemas, and adds local file sync.
 
 ```bash
 brew tap everruns/tap && brew install everruns
@@ -127,6 +132,7 @@ catalog.json                    marketplace listing and per-host metadata (hand-
 .claude-plugin/ .agents/plugins/ .cursor-plugin/   marketplaces (generated)
 gemini-extension.json, skills   Gemini CLI entry point (generated)
 scripts/build.mjs               generator and checks
+scripts/check-*.mjs             skills match the live MCP tools and commands
 ```
 
 ## Contributing
@@ -136,6 +142,7 @@ Edit only the hand-written files, then run:
 ```bash
 node scripts/build.mjs           # regenerate host files
 node scripts/build.mjs --check   # what CI runs
+node scripts/check-commands.mjs  # every `everruns …` command in a skill exists
 ```
 
 Skills follow the [Agent Skills](https://agentskills.io/specification) format:

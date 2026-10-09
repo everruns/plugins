@@ -16,7 +16,7 @@
         "authentication": "ON_INSTALL"
       },
       "category": "Agents",
-      "description": "Build, run and debug Everruns agents from your coding agent: create agents, run sessions, keep agents as files in your repo, and ship them to Slack, the web and other channels."
+      "description": "Use Everruns from your coding agent: hand tasks to your agents, build and test new ones, debug and evaluate them, ship them to Slack, the web and other channels, and keep an eye on cost and health."
     }
   ]
 }

@@ -59,10 +59,18 @@ Webhook, GitHub and MCP event triggers take their own flags (`--github-events`,
 `--repositories`, `--mcp-server`, `--mcp-event`); read `--help` for the shape.
 Guide: <https://docs.everruns.com/features/agent-triggers/>.
 
+## Before going public
+
+Public channels and frequent triggers spend money on every message. Offer a
+budget on the agent first (`everruns budgets create --help`; the subject is the
+agent, the limit in US dollars) and confirm the amount with the user.
+
 ## After shipping
 
 Test it the way a real caller would (send a Slack message, open the chat page,
 fire the trigger once), read the resulting session, and give the user the
-channel or trigger link plus how to turn it off
-(`everruns agents channels unpublish`, `everruns agents triggers update --enabled false`,
-or **Suspend exposures** on the agent).
+channel or trigger link plus how to turn it off:
+`everruns agents channels unpublish --help` for one channel,
+`everruns agents triggers update --help` to disable a trigger, or the kill
+switch for everything at once, `everruns agents exposures suspend --help`
+(`resume` undoes it).

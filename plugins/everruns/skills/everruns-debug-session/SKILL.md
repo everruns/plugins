@@ -58,7 +58,14 @@ everruns history diff --help
 A recent change with a `reason` often explains a new behavior. `history
 restore` can roll back, but that is a change: confirm with the user first.
 
-## 5. Report
+## 5. Fix it and keep it fixed
+
+If the user wants the fix applied, change the agent with `everruns-build-agent`
+and a `--reason` that names the session. Then make the failure a test: add the
+user's message as a case in the agent's eval, with a scorer for what went
+wrong (`everruns-evaluate-agent`), and run it.
+
+## 6. Report
 
 Lead with the cause in one or two sentences, with the event or change that
 shows it, then the fix (instructions, capability, credential, model) and

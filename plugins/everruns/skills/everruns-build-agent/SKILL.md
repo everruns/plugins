@@ -35,6 +35,22 @@ already provides over adding it again on the agent. For a third-party API
 without a capability, register its MCP server (`everruns mcp-servers create`);
 the result's `capability_ref` goes into `--capabilities`.
 
+### Give it what it needs to know
+
+Instructions are for behavior. Knowledge belongs elsewhere, where it can be
+updated without touching the agent:
+
+- **Reference material** (product docs, policies, runbooks):
+  `everruns knowledge-bases --help`; an OKF bundle imports with
+  `everruns knowledge-bases okf-import --help`.
+- **What it should remember** across sessions: `everruns memories --help`.
+- **Repeatable procedures**: a skill (`everruns skills create --help`, from
+  `SKILL.md` content), attached as `skill:<id>`.
+- **Scripts it runs often**: saved scripts (`everruns agents scripts --help`).
+- **Guardrails** on input or output: start from
+  `everruns capabilities guardrails examples list` and test a config with
+  `everruns capabilities guardrails dry-run --help` before attaching it.
+
 ## 3. Preview before saving
 
 Write the instructions as a short brief: role, what good output looks like,
@@ -66,17 +82,15 @@ whole list, so start from the agent's current list (`everruns agents get <id>`).
 
 ## 5. Test it
 
-Send a realistic first message and read the reply:
-
-- MCP: `agent_run { "agent_id": "agent_…", "message": "…" }`, then
-  `session_get_status` with the returned `session_id` until the status is
-  `idle`, passing `since_event_id` on each poll.
-- CLI: `everruns sessions create --agent agent_… --title "Smoke test"`, then
-  `everruns chat "…" --session session_…`, which waits for the reply.
+Send a realistic first message and read the reply, as in `everruns-run-agent`:
+`agent_run` and `session_get_status` over MCP, or `everruns sessions create
+--agent agent_… --title "Smoke test"` then `everruns chat "…" --session
+session_…` in the CLI.
 
 Check the reply against the purpose from step 1. If the agent used the wrong
 tool or none, adjust instructions or capabilities and test again. Two or three
-rounds is normal.
+rounds is normal. When the agent matters, turn those test messages into an
+eval so later changes are checked too (`everruns-evaluate-agent`).
 
 ## 6. Report
 

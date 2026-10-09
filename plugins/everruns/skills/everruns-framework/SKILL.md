@@ -1,9 +1,9 @@
 ---
 name: everruns-framework
-description: Write code that builds on Everruns, with the `everruns` Rust crate (agents and durable sessions inside your own program), `everruns-serve` (a hosted agent app), or the Everruns SDKs for Rust, Python and TypeScript (calling the Everruns API). Use when the user is writing or changing code that embeds an agent or talks to Everruns, rather than configuring the platform.
+description: Write Rust code that runs agents itself, with the `everruns` crate (agents, tools and durable sessions inside your own program) or `everruns-serve` (a hosted agent app with routes, tools and approvals). Use when the user embeds an agent in a Rust program or builds a serve app. To call a hosted Everruns agent from an app in any language, use everruns-sdk instead.
 ---
 
-# Build with the Everruns Framework and SDKs
+# Build with the Everruns Framework
 
 Pick the piece that matches what the user is building:
 
@@ -11,7 +11,9 @@ Pick the piece that matches what the user is building:
 |---|---|---|
 | A Rust program that runs agents itself | `everruns` crate (the Framework) | `cargo add everruns --features openai` and `cargo add tokio --features macros,rt-multi-thread` |
 | A hosted agent app with routes, tools and approvals (experimental) | `everruns-serve` | `cargo add everruns-serve tokio --features tokio/full` and `cargo add --build everruns-serve-build` |
-| An app that calls Everruns Cloud or a self-hosted server | Everruns SDK | `cargo add everruns-sdk`, `pip install everruns-sdk`, `npm install @everruns/sdk` |
+
+An app that only calls agents hosted on Everruns needs the SDK, not the
+Framework: see `everruns-sdk`.
 
 ## Framework in one example
 
@@ -56,8 +58,6 @@ Fetch only the set you need:
 
 - Framework: <https://docs.everruns.com/_llms-txt/framework.txt>
   (quickstart, agents, sessions, tools, serve, testing with the simulator)
-- Platform API and SDKs: <https://docs.everruns.com/_llms-txt/platform.txt> and
-  the OpenAPI document at <https://docs.everruns.com/api/openapi.json>
 - Crate API docs: <https://docs.rs/everruns>
 - Examples: <https://github.com/everruns/everruns/tree/main/examples>
 
@@ -68,5 +68,5 @@ Fetch only the set you need:
   releases.
 - Test agents offline with the built-in model simulator before spending
   provider credits; the Framework testing guide shows how.
-- When code only needs to call a deployed agent, use the SDK, not the
-  Framework.
+- When code only needs to call a deployed agent, use the SDK
+  (`everruns-sdk`), not the Framework.
