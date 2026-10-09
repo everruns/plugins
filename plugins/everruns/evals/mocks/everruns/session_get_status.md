@@ -1,0 +1,1 @@
+{"session_id": "{{input.session_id}}", "status": "idle", "last_event_id": "evt_42", "output": "Top 3 HN stories today: 1) A new Rust release with async closures. 2) A study on four-day work weeks. 3) An open-source alternative to a popular note-taking app.", "url": "https://app.everruns.com/sessions/{{input.session_id}}"}
