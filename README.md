@@ -128,11 +128,13 @@ plugins/everruns/
   skills/<name>/SKILL.md        the skills (hand-written)
   .claude-plugin/ .codex-plugin/ .cursor-plugin/ .mcp.json   host manifests (generated)
   assets/                       logo and icon
+  evals/                        scenario evals against a mocked Everruns organization
 catalog.json                    marketplace listing and per-host metadata (hand-written)
 .claude-plugin/ .agents/plugins/ .cursor-plugin/   marketplaces (generated)
 gemini-extension.json, skills   Gemini CLI entry point (generated)
 scripts/build.mjs               generator and checks
 scripts/check-*.mjs             skills match the live MCP tools and commands
+scripts/eval.mjs                runs the scenario evals with and without the skills
 ```
 
 ## Contributing
@@ -144,6 +146,23 @@ node scripts/build.mjs           # regenerate host files
 node scripts/build.mjs --check   # what CI runs
 node scripts/check-commands.mjs  # every `everruns …` command in a skill exists
 ```
+
+### Scenario evals
+
+`plugins/everruns/evals/` holds tasks a user would give a coding agent: hand
+work to an agent, explain a failed session, report spend, set up regression
+evals, handle a pasted API key, publish publicly, and write an SDK script. Each
+runs against a mocked Everruns MCP server, so no account is touched. The script
+runs every case three ways: with the plugin, with the MCP server but no skills,
+and with no plugin, so the table shows what the skills themselves add.
+
+```bash
+ANTHROPIC_API_KEY=... node scripts/eval.mjs --runs 3 --model claude-sonnet-5-5
+```
+
+It needs [Claude Code](https://code.claude.com) (`claude plugin eval`) and
+spends real model tokens, so it is run by hand before a release rather than
+in CI. When you change a skill, run the cases it affects (`--case <name>`).
 
 Skills follow the [Agent Skills](https://agentskills.io/specification) format:
 a short `description` that says when to load the skill, a body under 500

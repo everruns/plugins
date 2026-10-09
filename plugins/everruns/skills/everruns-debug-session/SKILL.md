@@ -69,7 +69,9 @@ wrong (`everruns-evaluate-agent`), and run it.
 
 Lead with the cause in one or two sentences, with the event or change that
 shows it, then the fix (instructions, capability, credential, model) and
-whether you applied it. Link the session: `https://app.everruns.com/sessions/<id>/events`.
+whether you applied it. Then say how to catch it next time: offer the eval case
+from step 5, or an observer that scores live sessions for the same failure
+(`everruns-evaluate-agent`). Link the session: `https://app.everruns.com/sessions/<id>/events`.
 
 For agents with recurring problems, `everruns health-issues list` and
 `everruns agents health-checks list --agent-id <id>` show what Everruns has
