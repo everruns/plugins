@@ -15,6 +15,8 @@ layout and the build.
   `discover` instead, so skills cannot go stale.
 - Keep skills task-shaped, under 500 lines, with a description that says when
   to load them. New skills go in the README skills table (the check enforces it).
+- Link the docs at `https://everruns.com/docs/`; the check rejects the old
+  docs subdomain.
 - Bump `version` in `plugin.json` for any change hosts should pick up.
 - This repository merges directly to `main`; no pull requests. Keep each
   commit small and green.

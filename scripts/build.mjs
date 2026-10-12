@@ -17,6 +17,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -238,6 +239,23 @@ for (const [rel, content] of outputs) {
     console.log(`wrote ${rel}`);
   }
 }
+
+// The docs moved from docs.everruns.com to everruns.com/docs (2026-10-12).
+// The old host redirects, but hosts copy these links into their UIs and
+// agents follow them, so tracked files must use the new address.
+function checkDocsHost() {
+  const files = execFileSync("git", ["ls-files", "-z"], { cwd: ROOT, encoding: "utf8" })
+    .split("\0")
+    .filter((rel) => rel && rel !== "scripts/build.mjs");
+  for (const rel of files) {
+    const file = path.join(ROOT, rel);
+    if (!fs.statSync(file, { throwIfNoEntry: false })?.isFile()) continue;
+    if (fs.readFileSync(file, "utf8").includes("docs.everruns.com")) {
+      fail(`${rel}: links docs.everruns.com; use https://everruns.com/docs/`);
+    }
+  }
+}
+checkDocsHost();
 
 if (errors.length) {
   for (const e of errors) console.error(`error: ${e}`);
