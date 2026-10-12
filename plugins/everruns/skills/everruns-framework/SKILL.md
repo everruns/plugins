@@ -56,7 +56,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 Fetch only the set you need:
 
-- Framework: <https://docs.everruns.com/_llms-txt/framework.txt>
+- Framework: <https://everruns.com/docs/_llms-txt/framework.txt>
   (quickstart, agents, sessions, tools, serve, testing with the simulator)
 - Crate API docs: <https://docs.rs/everruns>
 - Examples: <https://github.com/everruns/everruns/tree/main/examples>

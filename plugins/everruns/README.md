@@ -13,4 +13,4 @@ Claude Code:
 ```
 
 Other hosts: <https://github.com/everruns/plugins#install>.
-Docs: <https://docs.everruns.com/getting-started/use-in-ai-tools/>.
+Docs: <https://everruns.com/docs/getting-started/use-in-ai-tools/>.

@@ -96,8 +96,8 @@ README or the type hints in the editor instead of guessing.
 
 ## Read more
 
-- SDK guide: <https://docs.everruns.com/features/sdk/>
-- Event types: <https://docs.everruns.com/event-reference/>
-- Streaming patterns: <https://docs.everruns.com/how-to/stream-events/>
-- API reference and OpenAPI: <https://docs.everruns.com/api/>
+- SDK guide: <https://everruns.com/docs/features/sdk/>
+- Event types: <https://everruns.com/docs/event-reference/>
+- Streaming patterns: <https://everruns.com/docs/how-to/stream-events/>
+- API reference and OpenAPI: <https://everruns.com/docs/api/>
 - Source and examples: <https://github.com/everruns/sdk>

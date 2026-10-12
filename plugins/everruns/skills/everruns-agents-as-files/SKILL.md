@@ -47,7 +47,7 @@ Rules worth knowing:
 - Never put secrets in the folder. Reference configured MCP servers with
   `use = "catalog:…"`, or `${VAR}` placeholders the destination resolves.
 
-Full format: <https://docs.everruns.com/how-to/define-agents-as-files/>.
+Full format: <https://everruns.com/docs/how-to/define-agents-as-files/>.
 
 ## Commands
 
