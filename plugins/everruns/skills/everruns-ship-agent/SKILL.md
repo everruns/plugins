@@ -41,8 +41,8 @@ the owner-level agent permission. Slack has extra steps (publish, then
 Voice conversations and other channel kinds are set up the same way from the
 agent's **Integrations** tab; `--help` lists the types the command accepts.
 
-Guides: <https://docs.everruns.com/features/channels/>,
-<https://docs.everruns.com/how-to/publish-to-slack/>.
+Guides: <https://everruns.com/docs/features/channels/>,
+<https://everruns.com/docs/how-to/publish-to-slack/>.
 
 ## Triggers
 
@@ -57,7 +57,7 @@ everruns agents triggers runs list --help   # see what each run did
 
 Webhook, GitHub and MCP event triggers take their own flags (`--github-events`,
 `--repositories`, `--mcp-server`, `--mcp-event`); read `--help` for the shape.
-Guide: <https://docs.everruns.com/features/agent-triggers/>.
+Guide: <https://everruns.com/docs/features/agent-triggers/>.
 
 ## Before going public
 

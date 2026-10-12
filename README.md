@@ -89,7 +89,7 @@ gemini extensions install https://github.com/everruns/plugins
 The plugin needs nothing but the MCP server: it works in chat apps without a
 shell. Under the hood, everything Everruns can do is one command language,
 `everruns <noun> <verb> --flags`, which the MCP server runs for your agent. If
-the [`everruns` CLI](https://docs.everruns.com/features/cli/) is installed and
+the [`everruns` CLI](https://everruns.com/docs/features/cli/) is installed and
 signed in, the skills use it directly instead, which is faster, needs no tool
 schemas, and adds local file sync.
 

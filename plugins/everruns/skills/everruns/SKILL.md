@@ -8,7 +8,7 @@ description: Work with Everruns (app.everruns.com), the platform for durable AI 
 Everruns runs AI agents as durable sessions: an agent keeps working through
 restarts, waits for people, and is reachable from Slack, the web, schedules and
 other agents. Everruns Cloud is <https://app.everruns.com>; docs are at
-<https://docs.everruns.com>.
+<https://everruns.com/docs>.
 
 ## Pick the task skill
 
@@ -139,6 +139,6 @@ to it in lists.
 ## Read more
 
 The docs publish themselves as text for agents: start at
-<https://docs.everruns.com/llms.txt>, then fetch one topic set such as
-<https://docs.everruns.com/_llms-txt/platform.txt>. Cite the page URL in each
+<https://everruns.com/docs/llms.txt>, then fetch one topic set such as
+<https://everruns.com/docs/_llms-txt/platform.txt>. Cite the page URL in each
 page's `Source:` line, not the text file.
