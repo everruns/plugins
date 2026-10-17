@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Fails when the Everruns MCP server gains a tool the `everruns` skill does
+// Fails when the Everruns MCP server gains a tool the `everruns-mcp` skill does
 // not mention, so the skill cannot silently fall behind the server.
 // Reads the tool registry from everruns/everruns `main`; runs weekly in CI.
 //
@@ -38,10 +38,10 @@ if (tools.length < 8) {
   process.exit(1);
 }
 
-const skill = fs.readFileSync(path.join(ROOT, "plugins/everruns/skills/everruns/SKILL.md"), "utf8");
+const skill = fs.readFileSync(path.join(ROOT, "plugins/everruns/skills/everruns-mcp/SKILL.md"), "utf8");
 const missing = tools.filter((t) => !APP_ONLY.has(t) && !skill.includes(`\`${t}\``));
 if (missing.length) {
-  console.error(`error: the everruns skill does not mention these MCP tools: ${missing.join(", ")}`);
+  console.error(`error: the everruns-mcp skill does not mention these MCP tools: ${missing.join(", ")}`);
   process.exit(1);
 }
 console.log(`mcp-tools: ok (${tools.length} tools, ${APP_ONLY.size} app-only)`);

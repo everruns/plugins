@@ -7,7 +7,7 @@ description: Answer organization-level questions about Everruns. How much was sp
 
 Everything here is read-only unless the user asks for a change, so run it with
 MCP `query` or the CLI. Commands are the `everruns` command language (see the
-`everruns` skill); check flags with `--help`.
+`everruns-cli` skill); check flags with `--help`.
 
 Start broad with a report, then drill into the agents and sessions it points at.
 

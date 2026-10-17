@@ -7,7 +7,7 @@ description: Keep Everruns agents as files in a repository (agent.toml, instruct
 
 An agent package is a folder the CLI can validate, compare, import and
 export. The same package works on the Platform, in the Framework and in serve.
-This needs the `everruns` CLI (see the `everruns` skill to install it).
+This needs the `everruns` CLI (see `everruns-cli` for setup).
 
 ## Layout
 

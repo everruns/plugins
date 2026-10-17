@@ -1,72 +1,105 @@
 ---
 name: everruns-framework
-description: Write Rust code that runs agents itself, with the `everruns` crate (agents, tools and durable sessions inside your own program) or `everruns-serve` (a hosted agent app with routes, tools and approvals). Use when the user embeds an agent in a Rust program or builds a serve app. To call a hosted Everruns agent from an app in any language, use everruns-sdk instead.
+description: Build Rust applications with the Everruns Framework or compose advanced execution hosts with everruns_core::host. Use for in-process agents, providers, tools, scoped MCP clients, and capability authoring. For product concepts use everruns; for platform operations use everruns-cli or everruns-mcp, and for agent definitions use everruns-agent-authoring.
+license: MIT
+compatibility: Rust 1.94+ (edition 2024)
+metadata:
+  category: agent-framework
+  version: "3.3"
+  homepage: https://everruns.com
+  docs: https://everruns.com/docs/framework/
+  api-reference: https://docs.rs/everruns
+  repository: https://github.com/everruns/everruns
 ---
 
-# Build with the Everruns Framework
+# Everruns Framework and advanced hosts
 
-Pick the piece that matches what the user is building:
+Start new Rust applications with the application-facing `everruns` Framework.
+The engine runs in process without a database, server, or worker. Enable the
+provider you intend to call and supply its credentials:
 
-| They are building | Use | Install |
-|---|---|---|
-| A Rust program that runs agents itself | `everruns` crate (the Framework) | `cargo add everruns --features openai` and `cargo add tokio --features macros,rt-multi-thread` |
-| A hosted agent app with routes, tools and approvals (experimental) | `everruns-serve` | `cargo add everruns-serve tokio --features tokio/full` and `cargo add --build everruns-serve-build` |
-
-An app that only calls agents hosted on Everruns needs the SDK, not the
-Framework: see `everruns-sdk`.
-
-## Framework in one example
+```bash
+cargo add everruns --features openai
+```
 
 ```rust
 use everruns::{Agent, Engine, OpenAI};
 
-#[everruns::tool]
-/// Look up the current stock level for a SKU.
-async fn stock_level(sku: String) -> Result<u32, String> {
-    Ok(42)
-}
-
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let agent = Agent::builder()
-        .instructions("Answer inventory questions. Use the tool rather than guessing.")
-        .provider(OpenAI::from_env()?)
-        .model("gpt-6.1-sol")
-        .tool(stock_level())
-        .build()?;
-
-    let session = Engine::new().create(agent);
-    let turn = session.send_and_wait("How many SKU-1 do we have?").await?;
-    println!("{}", turn.response);
-    Ok(())
-}
+# async fn example() -> Result<(), Box<dyn std::error::Error>> {
+let agent = Agent::builder()
+    .instructions("Answer in one short sentence.")
+    .provider(OpenAI::from_env()?)
+    .model("gpt-6.1-sol")
+    .build()?;
+let turn = Engine::new().create(agent).run("Say hello.").await?;
+println!("{}", turn.response);
+# Ok(())
+# }
 ```
 
-- The provider supplies the driver and key (`OpenAI::from_env` reads
-  `OPENAI_API_KEY`); `.model("…")` only names the model. Other providers are
-  their own crates or features.
-- `send_and_wait` is the simple path; use `send` to stream events or steer a
-  running turn.
-- `#[everruns::tool]` derives the tool's JSON schema from the signature and doc
-  comment.
-- The same agent can be loaded from an `agent.toml` folder (see
-  `everruns-agents-as-files`).
+## Choose the dependency path
 
-## Where to read next
+- Ordinary applications use `everruns` for agents, models/providers, tools,
+  sessions, events, cancellation, workspaces, MCP, plugins, inspection, and
+  opt-in local scheduling.
+- Advanced system integrators combine `everruns`, `everruns-core` with the
+  `host` feature, and `everruns-contracts`. Select concrete providers and
+  integrations through facade features or `everruns::batteries`.
 
-Fetch only the set you need:
+`everruns_core::host` owns the low-level host boundary. The execution kernel
+lives in `everruns_core::engine`; do not add retired host, engine, or MCP crates.
 
-- Framework: <https://everruns.com/docs/_llms-txt/framework.txt>
-  (quickstart, agents, sessions, tools, serve, testing with the simulator)
-- Crate API docs: <https://docs.rs/everruns>
-- Examples: <https://github.com/everruns/everruns/tree/main/examples>
+## Common Framework tasks
 
-## Habits that save time
+- Use `Model::simulated` or `Model::simulated_with_config` for deterministic,
+  credential-free tests. Examples and real workflows use a live provider.
+- Pair a plain Framework `Model` with `Provider`, or use a provider
+  convenience, for real models.
+- Add ordinary tools with `#[everruns::tool]` or `FunctionTool`; use the
+  curated `everruns::capability` API for reusable capability packages.
+- Observe `Session::events`, cancel through `RunOptions`, and inspect the next
+  model context with `Session::inspect`.
+- Seed files with `AgentBuilder::file` and `readonly_file`; attach one trusted
+  workspace and configure `WorkspacePolicy` where needed.
+- Configure scoped MCP through `McpServer` and plugins through
+  `AgentBuilder::plugin`. Local-process MCP stays opt-in.
+- Enable `everruns/local` for a real workspace plus local task/schedule state.
+  The same profile also provides crash-durable canonical event history.
 
-- Check the crate version the project already uses (`Cargo.toml`) and read
-  docs for that version; the Framework is pre-1.0 and changes between minor
-  releases.
-- Test agents offline with the built-in model simulator before spending
-  provider credits; the Framework testing guide shows how.
-- When code only needs to call a deployed agent, use the SDK
-  (`everruns-sdk`), not the Framework.
+## Hosted agent applications
+
+For an HTTP agent application with routes, tools, and approvals, see
+[Everruns serve](https://everruns.com/docs/framework/serve/). Applications that
+only call a hosted Everruns agent use an SDK; the plugin's `everruns-sdk` guide
+covers Python, TypeScript, and Rust clients.
+
+## Advanced host boundary
+
+Use low-level crates only when the application is itself an execution host and
+must replace stores, filesystem factories, platform definitions, phase
+adapters, durable scheduling lifecycle, or worker topology:
+
+```bash
+cargo add everruns everruns-contracts
+cargo add everruns-core --features host
+```
+
+```rust
+use everruns::Provider;
+use everruns_core::host::{HostBackends, InProcessRuntimeBuilder};
+use everruns_contracts::model_spec::ModelSpec;
+# let _ = (HostBackends::in_memory, InProcessRuntimeBuilder::new);
+```
+
+Canonical events are the only maintained conversation write path. Advanced
+hosts use `EventLog`, `EventHistory`, `EventSink`, and `EventReader`; legacy
+mutable-history paths are not execution inputs.
+
+## References
+
+- [Everruns Framework](https://everruns.com/docs/framework/)
+- [Custom backends](https://everruns.com/docs/framework/custom-backends/)
+- [Framework API](https://docs.rs/everruns)
+- [Host API](https://docs.rs/everruns-core/latest/everruns_core/host/)
+- [Focused crate catalog](references/crates.md)
+- [Domain-language glossary](references/glossary.md)

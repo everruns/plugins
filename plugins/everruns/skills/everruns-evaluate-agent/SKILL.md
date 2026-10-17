@@ -15,7 +15,7 @@ Two tools, for two questions:
   samples completed turns of production sessions and scores them with rules or
   an LLM judge.
 
-Commands below are the `everruns` command language (see the `everruns` skill).
+Commands below are the `everruns` command language (see the `everruns-cli` skill).
 Creating evals, runs and observers are changes: use MCP `execute` or the CLI.
 Runs and judges spend model credits; say roughly how many sessions a run
 starts before you start it.

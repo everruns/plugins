@@ -5,7 +5,7 @@ description: Create a new Everruns agent or change an existing one from a plain-
 
 # Build or change an Everruns agent
 
-Commands below use the `everruns` command language from the `everruns` skill:
+Commands below use the `everruns` command language from the `everruns-cli` skill:
 run them with the CLI, or as the `commands` of MCP `query` (reads) and
 `execute` (changes). Check flags with `--help` before using one.
 

@@ -5,7 +5,7 @@ description: Find out why an Everruns session failed, stalled, looped, cost too 
 
 # Debug an Everruns session
 
-Commands below are the `everruns` command language (see the `everruns` skill).
+Commands below are the `everruns` command language (see the `everruns-cli` skill).
 Everything here is read-only, so run it with the CLI or MCP `query`.
 
 ## 1. Get the session id

@@ -5,7 +5,7 @@ description: Put an Everruns agent in front of people or systems, by adding and 
 
 # Ship an Everruns agent
 
-Commands below are the `everruns` command language (see the `everruns` skill).
+Commands below are the `everruns` command language (see the `everruns-cli` skill).
 Creating and publishing are changes: use the CLI or MCP `execute`, pass
 `--reason`, and confirm with the user before publishing anything public.
 

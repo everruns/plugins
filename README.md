@@ -20,16 +20,19 @@ that load only when a task needs them:
 
 | Skill | Your agent can… |
 |---|---|
-| `everruns` | Use Everruns at all: concepts, the MCP tools and the `everruns <noun> <verb>` command language, safe changes, secrets, links, and which skill to load next |
-| `everruns-run-agent` | Hand a task to one of your Everruns agents, follow it, pass files in and out, and bring the result back |
-| `everruns-build-agent` | Create or change an agent from a plain-language description, give it knowledge and skills, and test it with a real message |
-| `everruns-debug-session` | Explain why a session failed, stalled or gave a bad answer, fix it, and keep it fixed |
-| `everruns-evaluate-agent` | Prove an agent works with evals built from real sessions, compare models, and score live traffic |
-| `everruns-ship-agent` | Put an agent in front of people: Slack, web chat, A2A, webhooks, schedules and GitHub events, with a budget and a kill switch |
-| `everruns-operate` | Answer what was spent, what is broken and who changed what across your organization |
-| `everruns-agents-as-files` | Keep agents as `agent.toml` folders in your repository, and validate, diff, import and export them |
-| `everruns-sdk` | Call Everruns from your app with the Python, TypeScript and Rust SDKs |
-| `everruns-framework` | Run agents inside your own Rust program with the `everruns` crate or `everruns-serve` |
+| `everruns` | Understand product concepts, find documentation and Cloud, and choose the right workflow skill |
+| `everruns-cli` | Use the CLI and session shell, discover commands, script operations, and verify changes |
+| `everruns-mcp` | Connect through MCP, load shared skills, run sessions, handle questions and connections, and read resources |
+| `everruns-agent-authoring` | Design and revise agent behavior, harnesses, capabilities, identities, packages, and verification |
+| `everruns-run-agent` | Hand a task to an existing agent, follow it, exchange files, and bring back the result |
+| `everruns-build-agent` | Build or improve an agent from a plain-language brief, add knowledge and tools, and smoke-test it |
+| `everruns-debug-session` | Diagnose failed, stalled, or poor-quality sessions and verify fixes |
+| `everruns-evaluate-agent` | Build regression evals, compare models, and score live traffic |
+| `everruns-ship-agent` | Expose agents through channels and triggers, with budgets and controls for stopping them |
+| `everruns-operate` | Investigate organization spending, health, and change history |
+| `everruns-agents-as-files` | Keep agent packages in a repository and validate, compare, import, or export them |
+| `everruns-sdk` | Call hosted agents from Python, TypeScript, or Rust applications |
+| `everruns-framework` | Develop Rust applications that run agents themselves and compose advanced execution hosts |
 
 ## Install
 

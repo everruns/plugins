@@ -102,7 +102,7 @@ const market = catalog.marketplace;
 const claudeEntries = [];
 const codexEntries = [];
 const cursorEntries = [];
-const readmeIndex = fs.readFileSync(path.join(ROOT, "README.md"), "utf8");
+let readmeIndex = fs.readFileSync(path.join(ROOT, "README.md"), "utf8");
 
 for (const entry of catalog.plugins) {
   const dir = entry.path;
@@ -121,9 +121,58 @@ for (const entry of catalog.plugins) {
   }
 
   const skills = checkSkills(dir);
+  const descriptions = entry.skillDescriptions ?? {};
+  for (const skill of skills) {
+    if (!descriptions[skill]) fail(`catalog.json: missing description for skill '${skill}'`);
+  }
+  for (const skill of Object.keys(descriptions)) {
+    if (!skills.includes(skill)) fail(`catalog.json: described skill '${skill}' is missing`);
+  }
+  const skillTable = [
+    "| Skill | Your agent can… |",
+    "|---|---|",
+    ...Object.entries(descriptions).map(([skill, description]) => `| \`${skill}\` | ${description} |`),
+  ].join("\n");
+  if (catalog.gemini === dir) {
+    const tablePattern = /\| Skill \| Your agent can… \|[\s\S]*?(?=\n\n)/;
+    if (!tablePattern.test(readmeIndex)) fail("README.md: missing generated skills table");
+    readmeIndex = readmeIndex.replace(tablePattern, () => skillTable);
+    emit("README.md", readmeIndex);
+  }
   for (const skill of skills) {
     if (!readmeIndex.includes(`\`${skill}\``)) fail(`README.md: skill '${skill}' is not listed`);
   }
+
+  const sharedSkills = entry.sharedSkills ?? [];
+  for (const skill of sharedSkills) {
+    if (!skills.includes(skill)) fail(`catalog.json: shared skill '${skill}' is missing`);
+  }
+  emit(`${dir}/README.md`, `# ${entry.displayName} plugin
+
+Lets a coding agent build, run, debug and ship [Everruns](https://everruns.com)
+agents. It connects the Everruns MCP server (\`https://app.everruns.com/mcp\`,
+OAuth sign-in) and adds ${skills.length} skills that load when needed.
+
+${skillTable}
+
+Claude Code:
+
+\`\`\`text
+/plugin install ${manifest.name} --marketplace everruns/plugins
+\`\`\`
+
+Other hosts: <https://github.com/everruns/plugins#install>.
+Docs: <https://everruns.com/docs/getting-started/use-in-ai-tools/>.
+
+## Maintaining shared skills
+
+${sharedSkills.map((skill) => `\`${skill}\``).join(", ")} are distributed copies
+of the canonical [Everruns product skills](https://github.com/everruns/everruns/tree/main/skills).
+Sync their complete directories, including references, when updating them.
+The other task guides are maintained in this plugin repository.
+Edit skill descriptions in \`catalog.json\` and regenerate this README and the
+root skills table with \`node scripts/build.mjs\`.
+`);
 
   const { name, version, description, author, homepage, repository, license, keywords } = manifest;
   const common = { name, version, description, author, homepage, repository, license, keywords };

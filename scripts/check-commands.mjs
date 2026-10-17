@@ -24,7 +24,7 @@ const HELP = "evals/platform-capability/help.json";
 const URL = `https://raw.githubusercontent.com/everruns/everruns/main/${HELP}`;
 
 const CLI_LOCAL = {
-  login: [], logout: [], status: [], chat: [],
+  login: [], logout: [], status: [], whoami: [], chat: [],
   orgs: ["select"],
   connections: ["set", "list", "remove"],
   files: ["sync", "push", "pull", "ls"],
@@ -65,8 +65,10 @@ const files = fs
 for (const file of files) {
   const rel = path.relative(ROOT, file);
   const text = fs.readFileSync(file, "utf8");
+  // Cargo examples name the `everruns` crate, not the platform executable.
+  const commands = text.replace(/\bcargo\s+(?:add|install)\b[^`\n;&|]*/g, "");
   // Commands appear in code: inline `everruns …` or fenced blocks.
-  for (const m of text.matchAll(/(?:^|[`\s(])everruns ([a-z][a-z0-9-]*)(?: ([a-z][a-z0-9-]*))?/gm)) {
+  for (const m of commands.matchAll(/(?:^|[`\s(])everruns ([a-z][a-z0-9-]*)(?: ([a-z][a-z0-9-]*))?/gm)) {
     const [, noun, verb] = m;
     if (!nouns.has(noun)) {
       // Prose like "everruns agents" is caught too; only flag words that look like commands.
