@@ -33,6 +33,7 @@ jobs:
       - run: npm install -g @anthropic-ai/claude-code
       - run: claude plugin validate .
       - run: claude plugin validate plugins/everruns
+      - run: claude plugin validate plugins/styk
 
   mcp-tools:
     name: Skills cover the live MCP tools

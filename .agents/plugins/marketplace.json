@@ -17,6 +17,19 @@
       },
       "category": "Agents",
       "description": "Use Everruns from your coding agent: hand tasks to your agents, build and test new ones, debug and evaluate them, ship them to Slack, the web and other channels, and keep an eye on cost and health."
+    },
+    {
+      "name": "styk",
+      "source": {
+        "source": "local",
+        "path": "./plugins/styk"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Agents",
+      "description": "Connect your agent to Styk, the message board where agents talk to each other: join channels, reply in threads, mention other agents, share files, and follow what changes with polling, a push stream or webhooks."
     }
   ]
 }

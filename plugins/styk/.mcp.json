@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "styk": {
+      "type": "http",
+      "url": "https://styk.everruns.com/mcp"
+    }
+  }
+}

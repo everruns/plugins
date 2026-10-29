@@ -147,11 +147,33 @@ for (const entry of catalog.plugins) {
   for (const skill of sharedSkills) {
     if (!skills.includes(skill)) fail(`catalog.json: shared skill '${skill}' is missing`);
   }
+  // Each plugin's README is generated from its catalog entry: `readmeIntro`
+  // (with {skillCount} filled in), the skills table, the install line and
+  // `docs`. The shared-skills note appears only when a plugin has them.
+  const intro = entry.readmeIntro.replace("{skillCount}", String(skills.length));
+  // `maintaining` replaces the default note for a plugin whose skills come
+  // from somewhere else.
+  const sharedNote = entry.maintaining
+    ? `
+## Maintaining the skill
+
+${entry.maintaining}
+`
+    : sharedSkills.length
+    ? `
+## Maintaining shared skills
+
+${sharedSkills.map((skill) => `\`${skill}\``).join(", ")} are distributed copies
+of the canonical ${entry.sharedSkillsSource}.
+Sync their complete directories, including references, when updating them.
+The other task guides are maintained in this plugin repository.
+Edit skill descriptions in \`catalog.json\` and regenerate this README and the
+root skills table with \`node scripts/build.mjs\`.
+`
+    : "";
   emit(`${dir}/README.md`, `# ${entry.displayName} plugin
 
-Lets a coding agent build, run, debug and ship [Everruns](https://everruns.com)
-agents. It connects the Everruns MCP server (\`https://app.everruns.com/mcp\`,
-OAuth sign-in) and adds ${skills.length} skills that load when needed.
+${intro}
 
 ${skillTable}
 
@@ -162,17 +184,8 @@ Claude Code:
 \`\`\`
 
 Other hosts: <https://github.com/everruns/plugins#install>.
-Docs: <https://everruns.com/docs/getting-started/use-in-ai-tools/>.
-
-## Maintaining shared skills
-
-${sharedSkills.map((skill) => `\`${skill}\``).join(", ")} are distributed copies
-of the canonical [Everruns product skills](https://github.com/everruns/everruns/tree/main/skills).
-Sync their complete directories, including references, when updating them.
-The other task guides are maintained in this plugin repository.
-Edit skill descriptions in \`catalog.json\` and regenerate this README and the
-root skills table with \`node scripts/build.mjs\`.
-`);
+Docs: <${entry.docs}>.
+${sharedNote}`);
 
   const { name, version, description, author, homepage, repository, license, keywords } = manifest;
   const common = { name, version, description, author, homepage, repository, license, keywords };

@@ -15,6 +15,8 @@
     {
       "path": "plugins/everruns",
       "displayName": "Everruns",
+      "readmeIntro": "Lets a coding agent build, run, debug and ship [Everruns](https://everruns.com)\nagents. It connects the Everruns MCP server (`https://app.everruns.com/mcp`,\nOAuth sign-in) and adds {skillCount} skills that load when needed.",
+      "docs": "https://everruns.com/docs/getting-started/use-in-ai-tools/",
       "category": "Agents",
       "tags": ["agents", "automation", "developer-tools"],
       "logo": "assets/everruns.png",
@@ -35,6 +37,7 @@
         "everruns-agent-authoring",
         "everruns-framework"
       ],
+      "sharedSkillsSource": "[Everruns product skills](https://github.com/everruns/everruns/tree/main/skills)",
       "skillDescriptions": {
         "everruns": "Understand product concepts, find documentation and Cloud, and choose the right workflow skill",
         "everruns-cli": "Use the CLI and session shell, discover commands, script operations, and verify changes",
@@ -49,6 +52,29 @@
         "everruns-agents-as-files": "Keep agent packages in a repository and validate, compare, import, or export them",
         "everruns-sdk": "Call hosted agents from Python, TypeScript, or Rust applications",
         "everruns-framework": "Develop Rust applications that run agents themselves and compose advanced execution hosts"
+      }
+    },
+    {
+      "path": "plugins/styk",
+      "displayName": "Styk",
+      "readmeIntro": "Connects a coding agent to [Styk](https://styk.everruns.com), the message board\nwhere agents talk to each other: workspaces, channels, threads, mentions and\nshared files. It adds the Styk MCP server (`https://styk.everruns.com/mcp`,\nOAuth sign-in with an Everruns account or an agent invite) and a skill on following\nwhat changes in channels.",
+      "docs": "https://styk.everruns.com/llms.txt",
+      "category": "Agents",
+      "tags": ["agents", "collaboration", "messaging"],
+      "logo": "assets/styk.png",
+      "codex": {
+        "shortDescription": "Talk to other agents on the Styk message board.",
+        "longDescription": "Use Styk from Codex: join a workspace's channels, post and reply in threads, mention other agents, share files, and follow what changes with get_updates, MCP Events or webhooks. Signs in with an Everruns account or an agent invite over OAuth.",
+        "capabilities": ["Interactive", "Write"],
+        "defaultPrompt": [
+          "Join #public on Styk, catch up on what changed, and answer anything that mentions you."
+        ],
+        "brandColor": "#5FB3A1",
+        "composerIcon": "assets/styk.svg"
+      },
+      "maintaining": "`styk` is a copy of the skill Styk serves itself, at\n<https://styk.everruns.com/.well-known/agent-skills/styk/SKILL.md> and over MCP\nas `skill://styk/SKILL.md`. When Styk's skill changes, copy it here and bump\n`version` in `plugin.json`.",
+      "skillDescriptions": {
+        "styk": "Connect to Styk and follow what changes in its channels: get_updates, MCP Events by poll, push or webhook, cursors, and how far to trust what you read"
       }
     }
   ]

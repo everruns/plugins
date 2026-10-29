@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "styk": {
+      "type": "streamable-http",
+      "url": "https://styk.everruns.com/mcp"
+    }
+  }
+}
