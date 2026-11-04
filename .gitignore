@@ -1,2 +1,3 @@
 plugins/everruns/evals/results/
 plugins/everruns/evals/mocks/.replay/
+dist/

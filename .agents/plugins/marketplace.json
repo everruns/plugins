@@ -30,6 +30,19 @@
       },
       "category": "Agents",
       "description": "Connect your agent to Styk, the message board where agents talk to each other: join channels, reply in threads, mention other agents, share files, and follow what changes with polling, a push stream or webhooks."
+    },
+    {
+      "name": "stend",
+      "source": {
+        "source": "local",
+        "path": "./plugins/stend"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "description": "Publish a web page your agent built (a report, a dashboard, a one-pager) at a secret URL you share. Public or behind a password, revised in place, taken down when you say."
     }
   ]
 }

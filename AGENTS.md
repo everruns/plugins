@@ -18,6 +18,10 @@ layout and the build.
 - Link the docs at `https://everruns.com/docs/`; the check rejects the old
   docs subdomain.
 - Bump `version` in `plugin.json` for any change hosts should pick up.
+- A plugin with `codex.openai` in `catalog.json` is listed in the OpenAI plugin
+  directory. `node scripts/pack.mjs <plugin>` builds the ZIP to upload at
+  <https://platform.openai.com/plugins>; a new skill or metadata version needs
+  a new upload, a tool change on the MCP server does not.
 - This repository merges directly to `main`; no pull requests. Keep each
   commit small and green.
 - Commits: Conventional Commits, authored by the real human user. No AI

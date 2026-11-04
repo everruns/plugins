@@ -48,6 +48,19 @@ Install it the same way as below, with `styk` in place of `everruns`, for
 example `/plugin install styk --marketplace everruns/plugins` in Claude Code
 or `codex plugin add styk@everruns` in Codex.
 
+### Stend
+
+The `stend` plugin connects your agent to [Stend](https://stend.sh), which
+publishes what your agent builds as a web page at a secret link
+(`https://stend.sh/mcp`, OAuth sign-in with an Everruns account):
+
+| Skill | Your agent can… |
+|---|---|
+| `stend` | Publish a page at a secret link, revise it in place, share it for editing, put it behind a password, and take it offline |
+
+Install it the same way, with `stend` in place of `everruns`, for example
+`codex plugin add stend@everruns` in Codex.
+
 ## Install
 
 You need an Everruns account. Sign up at <https://app.everruns.com>; the first

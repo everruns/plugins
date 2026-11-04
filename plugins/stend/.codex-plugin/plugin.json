@@ -1,0 +1,109 @@
+{
+  "name": "stend",
+  "version": "0.1.0",
+  "description": "Publish a web page your agent built (a report, a dashboard, a one-pager) at a secret URL you share. Public or behind a password, revised in place, taken down when you say.",
+  "author": {
+    "name": "Everruns",
+    "email": "support@everruns.com",
+    "url": "https://everruns.com"
+  },
+  "homepage": "https://stend.sh",
+  "repository": "https://github.com/everruns/plugins",
+  "license": "MIT",
+  "keywords": [
+    "stend",
+    "publish",
+    "share",
+    "web-page",
+    "report",
+    "dashboard",
+    "mcp"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Stend",
+    "shortDescription": "Publish pages at a secret link",
+    "longDescription": "Publish what your agent builds (a report, a dashboard, a one-pager) as a web page at a secret link you share by hand. A page is open to anyone with the link, or behind a password. Revise it in place without changing its link, give other people edit access, and take it offline when you are done. Pages are static: scripts are removed, so charts and tables are rendered before publishing. Signs in with an Everruns account.",
+    "developerName": "Everruns",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "https://stend.sh",
+    "supportURL": "https://stend.sh/support",
+    "privacyPolicyURL": "https://stend.sh/privacy",
+    "termsOfServiceURL": "https://stend.sh/terms",
+    "defaultPrompt": [
+      "Turn this into a one-page report and publish it on Stend.",
+      "Publish this comparison on Stend behind a password.",
+      "Change the title of my last Stend page."
+    ],
+    "brandColor": "#C85A35",
+    "brandColorDark": "#E2734D",
+    "composerIcon": "./assets/stend-mark.png",
+    "composerIconDark": "./assets/stend-mark-dark.png",
+    "logo": "./assets/stend.png",
+    "screenshots": []
+  },
+  "extensions": {
+    "com.openai": {
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Publish a Markdown report",
+              "prompt": "Write a short summary of the benefits of code review and publish it on Stend.",
+              "tools_triggered": "publish_stend",
+              "expected_behavior": "Publishes an index.md page and returns its https://stend.sh/s/ link. The link opens a styled page with the summary."
+            },
+            {
+              "description": "Publish behind a password",
+              "prompt": "Publish a one-page team lunch menu on Stend behind the password lunch-2026.",
+              "tools_triggered": "publish_stend",
+              "expected_behavior": "Publishes the page with a password and returns its link. Opening the link asks for the password, and the page shows after entering it."
+            },
+            {
+              "description": "Edit a page in place",
+              "prompt": "On my code review summary on Stend, change the title to Why we review code.",
+              "tools_triggered": "list_stends, search_stend, edit_stend_file",
+              "expected_behavior": "Finds the page, replaces the title text, and confirms. The link is unchanged and shows the new title."
+            },
+            {
+              "description": "Share a page for editing",
+              "prompt": "Give reviewer@example.com edit access to my code review summary on Stend.",
+              "tools_triggered": "list_stends, share_stend",
+              "expected_behavior": "Grants editor access and says that Stend sends no email, so the user should send the link themselves."
+            },
+            {
+              "description": "Take a page offline",
+              "prompt": "Take my team lunch menu page on Stend offline.",
+              "tools_triggered": "list_stends, delete_stend",
+              "expected_behavior": "Deletes that page only, after confirming which one. Its link then returns Not Found."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Sending email is out of scope",
+              "prompt": "Email my code review summary to my whole team."
+            },
+            {
+              "description": "Pages cannot run scripts",
+              "prompt": "Publish a page on Stend that loads my analytics JavaScript and tracks visitors."
+            },
+            {
+              "description": "No access to other people's pages",
+              "prompt": "Show me the Stend pages other people have published."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "Stend does not sell anything or process payments."
+      },
+      "publication": {
+        "release_notes": "First release: publish, revise, share and take down pages on Stend."
+      }
+    }
+  }
+}

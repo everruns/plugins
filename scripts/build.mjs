@@ -97,6 +97,38 @@ function hostMcp(portable) {
   return { mcpServers: servers };
 }
 
+const pick = (obj, keys) => Object.fromEntries(keys.filter((k) => obj[k] !== undefined).map((k) => [k, obj[k]]));
+
+// A plugin with `codex.openai` is submitted to the OpenAI plugin directory
+// (https://developers.openai.com/plugins/deploy/submission). Upload accepts
+// drafts that review then refuses, so the listing limits are checked here.
+function checkSubmission(dir, entry, mcp) {
+  const c = entry.codex;
+  const where = `catalog.json (${dir})`;
+  if (entry.displayName.length > 30) fail(`${where}: displayName is over 30 characters`);
+  if (c.shortDescription.length > 30) fail(`${where}: codex.shortDescription is over 30 characters`);
+  if (c.longDescription.length > 4000) fail(`${where}: codex.longDescription is over 4000 characters`);
+  for (const key of ["websiteURL", "supportURL", "privacyPolicyURL", "termsOfServiceURL"]) {
+    if (!/^https:\/\//.test(c[key] ?? "")) fail(`${where}: codex.${key} must be an HTTPS URL`);
+  }
+  if (c.defaultPrompt.length > 3) fail(`${where}: at most three codex.defaultPrompt entries`);
+  for (const prompt of c.defaultPrompt) {
+    if (prompt.length > 128) fail(`${where}: default prompt over 128 characters: ${prompt}`);
+  }
+  if (Object.keys(mcp.mcpServers).length !== 1) fail(`${where}: review cases need exactly one MCP server`);
+  const cases = c.openai.review?.test_cases ?? {};
+  if ((cases.positive ?? []).length !== 5) fail(`${where}: review needs exactly five positive test cases`);
+  if ((cases.negative ?? []).length !== 3) fail(`${where}: review needs exactly three negative test cases`);
+  for (const t of cases.positive ?? []) {
+    for (const key of ["description", "prompt", "tools_triggered", "expected_behavior"]) {
+      if (!t[key]) fail(`${where}: positive test case is missing ${key}`);
+    }
+  }
+  for (const t of cases.negative ?? []) {
+    if (!t.description || !t.prompt) fail(`${where}: negative test case needs description and prompt`);
+  }
+}
+
 const catalog = readJson("catalog.json");
 const market = catalog.marketplace;
 const claudeEntries = [];
@@ -116,7 +148,7 @@ for (const entry of catalog.plugins) {
   if (!NAME_RE.test(manifest.name) || manifest.name !== path.basename(dir)) fail(`${dir}/plugin.json: name must be valid and match the folder`);
   if (!/^\d+\.\d+\.\d+$/.test(manifest.version ?? "")) fail(`${dir}/plugin.json: version must be semver`);
   if (mcp.$schema !== MCP_SCHEMA) fail(`${dir}/mcp.json: $schema must be ${MCP_SCHEMA}`);
-  for (const asset of [entry.logo, entry.codex?.composerIcon].filter(Boolean)) {
+  for (const asset of [entry.logo, entry.codex?.composerIcon, entry.codex?.composerIconDark].filter(Boolean)) {
     if (!fs.existsSync(path.join(ROOT, dir, asset))) fail(`${dir}: asset ${asset} is missing`);
   }
 
@@ -190,6 +222,8 @@ ${sharedNote}`);
   const { name, version, description, author, homepage, repository, license, keywords } = manifest;
   const common = { name, version, description, author, homepage, repository, license, keywords };
 
+  if (entry.codex.openai) checkSubmission(dir, entry, mcp);
+
   emit(`${dir}/.mcp.json`, hostMcp(mcp));
   emit(`${dir}/.claude-plugin/plugin.json`, { ...common, skills: "./skills/", mcpServers: "./.mcp.json" });
   emit(`${dir}/.codex-plugin/plugin.json`, {
@@ -203,13 +237,19 @@ ${sharedNote}`);
       developerName: author.name,
       category: entry.category,
       capabilities: entry.codex.capabilities,
-      websiteURL: author.url,
+      websiteURL: entry.codex.websiteURL ?? author.url,
+      ...pick(entry.codex, ["supportURL", "privacyPolicyURL", "termsOfServiceURL"]),
       defaultPrompt: entry.codex.defaultPrompt,
       brandColor: entry.codex.brandColor,
+      ...pick(entry.codex, ["brandColorDark"]),
       composerIcon: `./${entry.codex.composerIcon}`,
+      ...(entry.codex.composerIconDark ? { composerIconDark: `./${entry.codex.composerIconDark}` } : {}),
       logo: `./${entry.logo}`,
       screenshots: [],
     },
+    // Review cases and release notes for the OpenAI plugin directory. The
+    // portal imports them from this file when the plugin ZIP is uploaded.
+    ...(entry.codex.openai ? { extensions: { "com.openai": entry.codex.openai } } : {}),
   });
   emit(`${dir}/.cursor-plugin/plugin.json`, {
     name,

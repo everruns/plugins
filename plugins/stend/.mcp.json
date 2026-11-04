@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "stend": {
+      "type": "http",
+      "url": "https://stend.sh/mcp"
+    }
+  }
+}

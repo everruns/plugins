@@ -52,6 +52,30 @@
       ],
       "source": "./plugins/styk",
       "category": "Agents"
+    },
+    {
+      "name": "stend",
+      "description": "Publish a web page your agent built (a report, a dashboard, a one-pager) at a secret URL you share. Public or behind a password, revised in place, taken down when you say.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Everruns",
+        "email": "support@everruns.com",
+        "url": "https://everruns.com"
+      },
+      "homepage": "https://stend.sh",
+      "repository": "https://github.com/everruns/plugins",
+      "license": "MIT",
+      "keywords": [
+        "stend",
+        "publish",
+        "share",
+        "web-page",
+        "report",
+        "dashboard",
+        "mcp"
+      ],
+      "source": "./plugins/stend",
+      "category": "Productivity"
     }
   ]
 }

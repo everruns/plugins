@@ -34,6 +34,7 @@ jobs:
       - run: claude plugin validate .
       - run: claude plugin validate plugins/everruns
       - run: claude plugin validate plugins/styk
+      - run: claude plugin validate plugins/stend
 
   mcp-tools:
     name: Skills cover the live MCP tools
