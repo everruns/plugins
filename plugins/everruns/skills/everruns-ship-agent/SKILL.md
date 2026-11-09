@@ -72,5 +72,5 @@ fire the trigger once), read the resulting session, and give the user the
 channel or trigger link plus how to turn it off:
 `everruns agents channels unpublish --help` for one channel,
 `everruns agents triggers update --help` to disable a trigger, or the kill
-switch for everything at once, `everruns agents exposures suspend --help`
+switch for everything at once, `everruns agents pause --help`
 (`resume` undoes it).

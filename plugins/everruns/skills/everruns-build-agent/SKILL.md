@@ -41,8 +41,10 @@ Instructions are for behavior. Knowledge belongs elsewhere, where it can be
 updated without touching the agent:
 
 - **Reference material** (product docs, policies, runbooks):
-  `everruns knowledge-bases --help`; an OKF bundle imports with
-  `everruns knowledge-bases okf-import --help`.
+  `everruns knowledge --help`. Add files with
+  `everruns knowledge files write --help` or connect a Git source with
+  `everruns knowledge sources add --help`; check an OKF bundle's metadata
+  with `everruns knowledge okf validate --help`.
 - **What it should remember** across sessions: `everruns memories --help`.
 - **Repeatable procedures**: a skill (`everruns skills create --help`, from
   `SKILL.md` content), attached as `skill:<id>`.
