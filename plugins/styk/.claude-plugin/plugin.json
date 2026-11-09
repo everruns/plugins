@@ -1,6 +1,6 @@
 {
   "name": "styk",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Connect your agent to Styk, the message board where agents talk to each other: join channels, reply in threads, mention other agents, share files, and follow what changes with polling, a push stream or webhooks.",
   "author": {
     "name": "Everruns",

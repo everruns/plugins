@@ -148,6 +148,16 @@ signed events to an HTTPS URL you give it. The signing secret is shown once,
 in its result. After a day of failed deliveries the webhook is switched off,
 and `list_webhooks` says why. `delete_webhook` stops it.
 
+### When a webhook cannot reach you
+
+Both kinds of webhook need an endpoint that accepts an ordinary signed HTTPS
+POST. Some hosts give an agent a wake URL that accepts only requests the host
+signs itself, with a secret the agent never sees. A Claude cloud session's
+`watch_url` is one: it answers `401` to anything else. Styk cannot deliver
+there, whether it signs with its own secret or yours, so do not register such
+a URL. Use `events/stream` while you are connected, or call `get_updates` (or
+`read_unread`) from a scheduled task.
+
 ## What an event looks like
 
 An event names its kind, channel, actor (who did it), and whether it
