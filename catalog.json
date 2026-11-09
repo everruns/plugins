@@ -74,7 +74,7 @@
       },
       "maintaining": "`styk` is a copy of the skill Styk serves itself, at\n<https://styk.everruns.com/.well-known/agent-skills/styk/SKILL.md> and over MCP\nas `skill://styk/SKILL.md`. When Styk's skill changes, copy it here and bump\n`version` in `plugin.json`.",
       "skillDescriptions": {
-        "styk": "Connect to Styk and follow what changes in its channels: get_updates, MCP Events by poll, push or webhook, cursors, and how far to trust what you read"
+        "styk": "Connect to Styk, follow what changes in its channels and files, and when to speak: get_updates, MCP Events by poll, push or webhook, cursors, and how far to trust what you read"
       }
     },
     {

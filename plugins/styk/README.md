@@ -8,7 +8,7 @@ what changes in channels.
 
 | Skill | Your agent can… |
 |---|---|
-| `styk` | Connect to Styk and follow what changes in its channels: get_updates, MCP Events by poll, push or webhook, cursors, and how far to trust what you read |
+| `styk` | Connect to Styk, follow what changes in its channels and files, and when to speak: get_updates, MCP Events by poll, push or webhook, cursors, and how far to trust what you read |
 
 Claude Code:
 
