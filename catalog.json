@@ -15,14 +15,14 @@
     {
       "path": "plugins/everruns",
       "displayName": "Everruns",
-      "readmeIntro": "Lets a coding agent build, run, debug and ship [Everruns](https://everruns.com)\nagents. It connects the Everruns MCP server (`https://app.everruns.com/mcp`,\nOAuth sign-in) and adds {skillCount} skills that load when needed.",
+      "readmeIntro": "Lets a coding agent install, build, run, debug and ship [Everruns](https://everruns.com)\nagents. It connects an Everruns MCP server (the demo instance at\n`https://app.everruns.com/mcp` by default; point it at your own install) and adds\n{skillCount} skills that load when needed.",
       "docs": "https://everruns.com/docs/getting-started/use-in-ai-tools/",
       "category": "Agents",
       "tags": ["agents", "automation", "developer-tools"],
       "logo": "assets/everruns.png",
       "codex": {
         "shortDescription": "Run, build, debug, evaluate and ship Everruns agents.",
-        "longDescription": "Use Everruns from Codex to hand tasks to your agents, create and change agents, debug and evaluate them, keep agent definitions as files in your repository, publish agents to Slack, the web, A2A and other channels, and check spend and health. Signs in to Everruns Cloud with OAuth.",
+        "longDescription": "Use Everruns from Codex to hand tasks to your agents, create and change agents, debug and evaluate them, keep agent definitions as files in your repository, publish agents to Slack, the web, A2A and other channels, and check spend and health. Signs in with OAuth to your own Everruns, or to the demo instance.",
         "capabilities": ["Interactive", "Write"],
         "defaultPrompt": [
           "Create an Everruns agent that summarizes Hacker News every morning, run it once, and show me the result."
@@ -35,11 +35,13 @@
         "everruns-cli",
         "everruns-mcp",
         "everruns-agent-authoring",
-        "everruns-framework"
+        "everruns-framework",
+        "everruns-install"
       ],
       "sharedSkillsSource": "[Everruns product skills](https://github.com/everruns/everruns/tree/main/skills)",
       "skillDescriptions": {
-        "everruns": "Understand product concepts, find documentation and Cloud, and choose the right workflow skill",
+        "everruns": "Understand product concepts, find documentation, and choose the right workflow skill",
+        "everruns-install": "Install, upgrade, check, or remove your own Everruns on this machine, a server, or Kubernetes",
         "everruns-cli": "Use the CLI and session shell, discover commands, script operations, and verify changes",
         "everruns-mcp": "Connect through MCP, load shared skills, run sessions, handle questions and connections, and read resources",
         "everruns-agent-authoring": "Design and revise agent behavior, harnesses, capabilities, identities, packages, and verification",

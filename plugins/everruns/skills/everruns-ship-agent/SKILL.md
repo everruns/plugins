@@ -34,15 +34,31 @@ everruns agents channels publish --help
 
 A channel starts as a draft and serves traffic only when it is published, the
 agent is active, and the agent's exposures are not suspended. Publishing needs
-the owner-level agent permission. Slack has extra steps (publish, then
-**Add to Slack**) best done in the UI: point the user to
-`https://app.everruns.com/agents/<agent_id>` > **Integrations**.
+the owner-level agent permission. Slack has extra steps best done in the UI:
+point the user to `<their Everruns URL>/agents/<agent_id>` > **Integrations**
+(the deployment they are connected to, such as `http://localhost:9300`).
+
+**Slack connection.** Pick how Slack reaches Everruns before creating the
+channel:
+
+- **Socket Mode** when the install has no public HTTPS address (a laptop,
+  a private network). Everruns connects out to Slack. The user generates an
+  app-level token in Slack (**Basic Information** > **App-Level Tokens**,
+  scope `connections:write`) and pastes it into the channel's **App-level
+  token** field in Everruns. **Add to Slack** needs a public HTTPS redirect,
+  so without one they use **Create Slack app** under **Configure manually** and
+  paste the bot token too.
+- **Request URL** when Everruns has a public HTTPS `PUBLIC_APP_URL`: publish,
+  then **Add to Slack**.
+
+Tokens go into Everruns pages, never into the chat.
 
 Voice conversations and other channel kinds are set up the same way from the
 agent's **Integrations** tab; `--help` lists the types the command accepts.
 
 Guides: <https://everruns.com/docs/features/channels/>,
-<https://everruns.com/docs/how-to/publish-to-slack/>.
+<https://everruns.com/docs/how-to/publish-to-slack/>,
+<https://everruns.com/docs/capabilities/slack/#socket-mode-or-request-url>.
 
 ## Triggers
 

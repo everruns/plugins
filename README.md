@@ -1,10 +1,12 @@
 # Everruns plugins
 
 Plugins that teach your coding agent to use [Everruns](https://everruns.com),
-the platform for durable AI agents. Install one, sign in once, and ask your
-agent to build, run, debug or ship Everruns agents for you.
+the free, open-source runtime for durable AI agents. Install one and ask your
+agent to install Everruns on your own machines, then build, run, debug or ship
+agents on it for you.
 
 ```text
+> Install Everruns on this machine with Docker and sign me in.
 > Create an Everruns agent that summarizes Hacker News every weekday morning,
   run it once, and post it to our Slack.
 ```
@@ -14,13 +16,15 @@ host that reads the portable [Agent Plugins](https://agent-plugins.org) format.
 
 ## What you get
 
-The `everruns` plugin connects your agent to the Everruns MCP server
-(`https://app.everruns.com/mcp`, OAuth sign-in in the browser) and adds skills
-that load only when a task needs them:
+The `everruns` plugin connects your agent to an Everruns MCP server (your own
+install, or the demo instance at `https://app.everruns.com/mcp` by default;
+OAuth sign-in in the browser) and adds skills that load only when a task needs
+them:
 
 | Skill | Your agent can… |
 |---|---|
-| `everruns` | Understand product concepts, find documentation and Cloud, and choose the right workflow skill |
+| `everruns` | Understand product concepts, find documentation, and choose the right workflow skill |
+| `everruns-install` | Install, upgrade, check, or remove your own Everruns on this machine, a server, or Kubernetes |
 | `everruns-cli` | Use the CLI and session shell, discover commands, script operations, and verify changes |
 | `everruns-mcp` | Connect through MCP, load shared skills, run sessions, handle questions and connections, and read resources |
 | `everruns-agent-authoring` | Design and revise agent behavior, harnesses, capabilities, identities, packages, and verification |
@@ -63,8 +67,16 @@ Install it the same way, with `stend` in place of `everruns`, for example
 
 ## Install
 
-You need an Everruns account. Sign up at <https://app.everruns.com>; the first
-tool call opens the sign-in page in your browser.
+Install the plugin, then pick which Everruns it talks to:
+
+- **Your own Everruns** (recommended). Don't have one yet? Ask your agent:
+  "Install Everruns on this machine with Docker and sign me in." The
+  `everruns-install` skill does it with `everruns docker up` (or `everruns k8s
+  up` on Kubernetes) and asks before changing anything. Then point the plugin
+  at it, see [Your own Everruns](#your-own-everruns).
+- **The demo instance**, to look around first. It is the default, and the first
+  tool call opens the sign-in page in your browser. It is a demo, not a hosted
+  service.
 
 ### Claude Code
 
@@ -109,10 +121,11 @@ gemini extensions install https://github.com/everruns/plugins
 
 ## First run
 
-1. Ask: "Who am I on Everruns?" Your host opens the browser to sign in.
+1. Ask: "Who am I on Everruns?" Your host opens the browser to sign in, unless
+   your install runs without sign-in.
 2. Then ask for real work: "Ask my research agent to summarize this repo",
-   "Why did https://app.everruns.com/sessions/… fail?", "How much did our
-   agents spend this week?", "Export the triage agent into `agents/triage`".
+   "Why did this session fail?" (paste its link), "How much did our agents
+   spend this week?", "Export the triage agent into `agents/triage`".
 
 ## Works even better with the CLI
 
@@ -128,14 +141,17 @@ brew tap everruns/tap && brew install everruns
 everruns login
 ```
 
-## Self-hosted Everruns
+## Your own Everruns
 
-The plugin points at Everruns Cloud. For your own deployment:
+The plugin's default MCP endpoint is the demo instance, because a plugin cannot
+know your address. For your own install, which `everruns docker up` serves at
+`http://localhost:9300`:
 
-- **CLI**: `everruns --api-url https://<your-host>/api login`, or set
+- **CLI**: `everruns docker up` and `everruns k8s up` sign the CLI in for you.
+  Elsewhere: `everruns --api-url https://<your-host>/api login`, or set
   `EVERRUNS_API_URL`.
 - **MCP**: register your server under the same name, for example
-  `claude mcp add --transport http everruns https://<your-host>/mcp`, and keep
+  `claude mcp add --transport http everruns http://localhost:9300/mcp`, and keep
   the skills.
 
 ## Security and privacy

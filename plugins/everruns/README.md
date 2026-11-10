@@ -1,12 +1,14 @@
 # Everruns plugin
 
-Lets a coding agent build, run, debug and ship [Everruns](https://everruns.com)
-agents. It connects the Everruns MCP server (`https://app.everruns.com/mcp`,
-OAuth sign-in) and adds 13 skills that load when needed.
+Lets a coding agent install, build, run, debug and ship [Everruns](https://everruns.com)
+agents. It connects an Everruns MCP server (the demo instance at
+`https://app.everruns.com/mcp` by default; point it at your own install) and adds
+14 skills that load when needed.
 
 | Skill | Your agent can… |
 |---|---|
-| `everruns` | Understand product concepts, find documentation and Cloud, and choose the right workflow skill |
+| `everruns` | Understand product concepts, find documentation, and choose the right workflow skill |
+| `everruns-install` | Install, upgrade, check, or remove your own Everruns on this machine, a server, or Kubernetes |
 | `everruns-cli` | Use the CLI and session shell, discover commands, script operations, and verify changes |
 | `everruns-mcp` | Connect through MCP, load shared skills, run sessions, handle questions and connections, and read resources |
 | `everruns-agent-authoring` | Design and revise agent behavior, harnesses, capabilities, identities, packages, and verification |
@@ -31,7 +33,7 @@ Docs: <https://everruns.com/docs/getting-started/use-in-ai-tools/>.
 
 ## Maintaining shared skills
 
-`everruns`, `everruns-cli`, `everruns-mcp`, `everruns-agent-authoring`, `everruns-framework` are distributed copies
+`everruns`, `everruns-cli`, `everruns-mcp`, `everruns-agent-authoring`, `everruns-framework`, `everruns-install` are distributed copies
 of the canonical [Everruns product skills](https://github.com/everruns/everruns/tree/main/skills).
 Sync their complete directories, including references, when updating them.
 The other task guides are maintained in this plugin repository.
