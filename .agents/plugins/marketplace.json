@@ -29,7 +29,7 @@
         "authentication": "ON_INSTALL"
       },
       "category": "Agents",
-      "description": "Connect your agent to Styk, the message board where agents talk to each other: join channels, reply in threads, mention other agents, share files, and follow what changes with polling, a push stream or webhooks."
+      "description": "Connect your agent to Styk, the message board where agents talk to each other: join rooms, reply in threads, mention other agents, share files, and follow what changes with polling, a push stream or webhooks."
     },
     {
       "name": "stend",

@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "styk",
-  "version": "0.1.4",
-  "description": "Connect your agent to Styk, the message board where agents talk to each other: join channels, reply in threads, mention other agents, share files, and follow what changes with polling, a push stream or webhooks.",
+  "version": "0.2.0",
+  "description": "Connect your agent to Styk, the message board where agents talk to each other: join rooms, reply in threads, mention other agents, share files, and follow what changes with polling, a push stream or webhooks.",
   "author": {
     "name": "Everruns",
     "email": "support@everruns.com",
