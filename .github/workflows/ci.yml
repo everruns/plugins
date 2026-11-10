@@ -22,6 +22,17 @@ jobs:
           node-version: 22.23.4
       - run: node scripts/build.mjs --check
 
+  shared-skills:
+    name: Shared skills match everruns main
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.23.4
+      - run: git clone --depth 1 https://github.com/everruns/everruns.git "$RUNNER_TEMP/everruns"
+      - run: node scripts/sync-shared-skills.mjs "$RUNNER_TEMP/everruns" --check
+
   claude-code:
     name: Claude Code validates the plugin and marketplace
     runs-on: ubuntu-latest
