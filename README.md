@@ -18,25 +18,15 @@ host that reads the portable [Agent Plugins](https://agent-plugins.org) format.
 
 The `everruns` plugin connects your agent to an Everruns MCP server (your own
 install, or the demo instance at `https://app.everruns.com/mcp` by default;
-OAuth sign-in in the browser) and adds skills that load only when a task needs
-them:
+OAuth sign-in in the browser) and adds the `everruns` skill. Its `SKILL.md` maps
+each task to a guide under `references/` (framework, install, cli, mcp, api,
+sdk, build-agent, agent-authoring, run-agent, debug-session, evaluate-agent,
+ship-agent, operate, agents-as-files), and the agent reads only the guides a
+task needs:
 
 | Skill | Your agent can… |
 |---|---|
-| `everruns` | Understand product concepts, find documentation, and choose the right workflow skill |
-| `everruns-install` | Install, upgrade, check, or remove your own Everruns on this machine, a server, or Kubernetes |
-| `everruns-cli` | Use the CLI and session shell, discover commands, script operations, and verify changes |
-| `everruns-mcp` | Connect through MCP, load shared skills, run sessions, handle questions and connections, and read resources |
-| `everruns-agent-authoring` | Design and revise agent behavior, harnesses, capabilities, identities, packages, and verification |
-| `everruns-run-agent` | Hand a task to an existing agent, follow it, exchange files, and bring back the result |
-| `everruns-build-agent` | Build or improve an agent from a plain-language brief, add knowledge and tools, and smoke-test it |
-| `everruns-debug-session` | Diagnose failed, stalled, or poor-quality sessions and verify fixes |
-| `everruns-evaluate-agent` | Build regression evals, compare models, and score live traffic |
-| `everruns-ship-agent` | Expose agents through channels and triggers, with budgets and controls for stopping them |
-| `everruns-operate` | Investigate organization spending, health, and change history |
-| `everruns-agents-as-files` | Keep agent packages in a repository and validate, compare, import, or export them |
-| `everruns-sdk` | Call hosted agents from Python, TypeScript, or Rust applications |
-| `everruns-framework` | Develop Rust applications that run agents themselves and compose advanced execution hosts |
+| `everruns` | Everything Everruns: the Rust Framework; installing your own Everruns; the CLI, MCP, REST API and SDKs; building, running, debugging, evaluating and shipping agents; spend, health and change history. One guide per task under `references/`, read only when needed |
 
 ### Styk
 
@@ -71,7 +61,7 @@ Install the plugin, then pick which Everruns it talks to:
 
 - **Your own Everruns** (recommended). Don't have one yet? Ask your agent:
   "Install Everruns on this machine with Docker and sign me in." The
-  `everruns-install` skill does it with `everruns docker up` (or `everruns k8s
+  `everruns` skill's install guide does it with `everruns docker up` (or `everruns k8s
   up` on Kubernetes) and asks before changing anything. Then point the plugin
   at it, see [Your own Everruns](#your-own-everruns).
 - **The demo instance**, to look around first. It is the default, and the first
@@ -114,9 +104,12 @@ gemini extensions install https://github.com/everruns/plugins
 - **Agent Plugins hosts** (GitHub Copilot, VS Code, Kiro and others): point the
   host at `plugins/everruns/`. Its `plugin.json`, `mcp.json` and `skills/`
   follow Agent Plugins 1.0.
-- **MCP only**: add `https://app.everruns.com/mcp` as a remote (Streamable
-  HTTP) server named `everruns`.
-- **Skills only**: copy `plugins/everruns/skills/*` into your agent's skills
+- **MCP only**: add your Everruns' `/mcp` endpoint (`http://localhost:9300/mcp`
+  after `everruns docker up`, or the demo's `https://app.everruns.com/mcp`) as a
+  remote (Streamable HTTP) server named `everruns`.
+- **Skill only**: `npx skills add everruns/everruns`, or
+  `everruns agent-skill install` from the Everruns CLI, or copy
+  `plugins/everruns/skills/everruns` into your agent's skills
   folder (for example `.claude/skills/` or `.agents/skills/`).
 
 ## First run

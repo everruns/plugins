@@ -195,10 +195,9 @@ ${entry.maintaining}
     ? `
 ## Maintaining shared skills
 
-${sharedSkills.map((skill) => `\`${skill}\``).join(", ")} are distributed copies
-of the canonical ${entry.sharedSkillsSource}.
-Sync their complete directories, including references, when updating them.
-The other task guides are maintained in this plugin repository.
+${sharedSkills.map((skill) => `\`${skill}\``).join(", ")} ${sharedSkills.length === 1 ? "is a distributed copy" : "are distributed copies"}
+of the canonical ${entry.sharedSkillsSource}, references included.
+Never edit ${sharedSkills.length === 1 ? "it" : "them"} here: everruns' skills-sync workflow copies every change.
 Edit skill descriptions in \`catalog.json\` and regenerate this README and the
 root skills table with \`node scripts/build.mjs\`.
 `

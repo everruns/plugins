@@ -1,8 +1,3 @@
----
-name: everruns-sdk
-description: Call Everruns from application code with the official SDKs for Python (`everruns-sdk`), TypeScript (`@everruns/sdk`) and Rust (`everruns-sdk`). Covers auth, running an agent in a session, streaming events, client-side tools, files and errors. Use when the user's app, backend, script or notebook should talk to Everruns Cloud or a self-hosted Everruns server. For running agents inside a Rust program instead, use everruns-framework.
----
-
 # Call Everruns from code
 
 The SDKs are typed clients over the Everruns API, with the same shape in all
@@ -20,7 +15,8 @@ on its own.
 
 The clients read `EVERRUNS_API_KEY` (a personal access token, `evr_pat_…`,
 created under **Settings > Personal Access Tokens**), `EVERRUNS_API_URL`
-(`https://app.everruns.com/api` for Everruns Cloud) and optionally
+(the deployment origin plus `/api`, such as `http://localhost:9300/api` for
+`everruns docker up`) and optionally
 `EVERRUNS_ORG_ID`. Keep the token in the environment or a secret store, never
 in code; do not ask the user to paste it into the chat.
 

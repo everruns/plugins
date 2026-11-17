@@ -1,13 +1,8 @@
----
-name: everruns-agents-as-files
-description: Keep Everruns agents as files in a repository (agent.toml, instructions.md, .agents/skills) and validate, diff, import and export them with the everruns CLI. Use when the user wants an agent under version control, reviewed in pull requests, copied between organizations or deployments, or checked in CI.
----
-
 # Agents as files
 
 An agent package is a folder the CLI can validate, compare, import and
 export. The same package works on the Platform, in the Framework and in serve.
-This needs the `everruns` CLI (see `everruns-cli` for setup).
+This needs the `everruns` CLI (see [cli.md](cli.md) for setup).
 
 ## Layout
 

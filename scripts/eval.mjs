@@ -55,7 +55,7 @@ const mcpOnly = run(bare, ["--ablation", "none"], path.join(out, "mcp-only.json"
 const mean = (xs) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : NaN);
 const pct = (x) => (Number.isNaN(x) ? "n/a" : `${Math.round(x * 100)}%`);
 const score = (runs = []) => mean(runs.map((r) => r.score ?? 0));
-// The skill-fired grader is an unscored indicator: the share of runs that loaded the right skill.
+// The skill-fired grader is an unscored indicator: the share of runs that loaded the everruns skill.
 const fired = (runs = []) =>
   mean(runs.map((r) => ((r.graders ?? []).find((g) => g.name === "skill-fired")?.passed ? 1 : 0)));
 
@@ -67,7 +67,7 @@ const rows = full.cases.map((c) => {
 const all = (pick) => pct(mean(rows.map(pick).map((s) => parseInt(s) / 100).filter((x) => !Number.isNaN(x))));
 rows.push(["**mean**", all((r) => r[1]), all((r) => r[2]), all((r) => r[3]), all((r) => r[4])]);
 
-console.log("\n| Case | With plugin | MCP only | No plugin | Right skill loaded |");
+console.log("\n| Case | With plugin | MCP only | No plugin | Skill loaded |");
 console.log("|---|---|---|---|---|");
 for (const r of rows) console.log(`| ${r.join(" | ")} |`);
 console.log(`\nRaw results: ${out}`);

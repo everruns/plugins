@@ -21,6 +21,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const HELP = "evals/platform-capability/help.json";
+const GOLDEN = "crates/cli/contract.golden";
 const URL = `https://raw.githubusercontent.com/everruns/everruns/main/${HELP}`;
 
 const CLI_LOCAL = {
@@ -45,6 +46,22 @@ const children = (text) =>
 
 const nouns = new Map();
 for (const noun of children(help[""])) nouns.set(noun, new Set(children(help[noun])));
+// The installed CLI adds local commands (docker, k8s, agent-skill, ...) that the
+// server tree does not have; its pinned command line lists every one.
+const golden = checkout
+  ? fs.readFileSync(path.join(checkout, GOLDEN), "utf8")
+  : await (async () => {
+      const res = await fetch(`https://raw.githubusercontent.com/everruns/everruns/main/${GOLDEN}`);
+      if (!res.ok) throw new Error(`GET ${GOLDEN}: ${res.status}`);
+      return res.text();
+    })();
+for (const line of golden.split("\n")) {
+  const [noun, verb] = line.split("\t")[0].split(" ");
+  if (!/^[a-z][a-z0-9-]*$/.test(noun ?? "")) continue;
+  const set = nouns.get(noun) ?? new Set();
+  if (verb) set.add(verb);
+  nouns.set(noun, set);
+}
 for (const [noun, verbs] of Object.entries(CLI_LOCAL)) {
   const set = nouns.get(noun) ?? new Set();
   verbs.forEach((v) => set.add(v));
@@ -59,7 +76,7 @@ const errors = [];
 const skillsRoot = path.join(ROOT, "plugins");
 const files = fs
   .readdirSync(skillsRoot, { recursive: true })
-  .filter((f) => f.endsWith("SKILL.md"))
+  .filter((f) => f.endsWith(".md") && f.includes(`${path.sep}skills${path.sep}`))
   .map((f) => path.join(skillsRoot, f));
 
 for (const file of files) {
@@ -87,4 +104,4 @@ if (errors.length) {
   for (const e of [...new Set(errors)]) console.error(`error: ${e}`);
   process.exit(1);
 }
-console.log(`commands: ok (${files.length} skills checked against ${nouns.size} command groups)`);
+console.log(`commands: ok (${files.length} skill files checked against ${nouns.size} command groups)`);

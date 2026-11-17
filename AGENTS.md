@@ -10,16 +10,18 @@ layout and the build.
   `node scripts/build.mjs`; never edit generated files by hand.
 - Run `node scripts/build.mjs --check` before pushing. CI runs the same check.
 - Shared skills (`sharedSkills` in `catalog.json`) are copies of `everruns/everruns/skills/`.
-  Never edit them here: everruns' `skills-sync` workflow opens a PR on every change to
-  `skills/` (`node scripts/sync-shared-skills.mjs <everruns checkout> --bump` by hand), and CI
-  fails when they differ from everruns main. Source of truth: everruns
+  The Everruns plugin carries one, `everruns`, with every task guide under `references/`;
+  no Everruns skill text is authored here. Never edit the copy: everruns' `skills-sync`
+  workflow pushes every change to `skills/` (`node scripts/sync-shared-skills.mjs <everruns
+  checkout> --bump` by hand), and CI fails when it differs from everruns main. Source of truth: everruns
   `knowledge/project/public-skills.md`.
 - Ground every skill statement in the live product: run the command's
   `--help` (CLI, or MCP `query`) or read `everruns/everruns` source before
   writing it. Do not copy flag lists into skills; point at `--help` and
   `discover` instead, so skills cannot go stale.
-- Keep skills task-shaped, under 500 lines, with a description that says when
-  to load them. New skills go in the README skills table (the check enforces it).
+- Keep each SKILL.md under 500 lines, with a description that says when to
+  load it; detail goes in `references/`. New skills go in the README skills
+  table (the check enforces it).
 - Link the docs at `https://everruns.com/docs/`; the check rejects the old
   docs subdomain.
 - Bump `version` in `plugin.json` for any change hosts should pick up.

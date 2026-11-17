@@ -1,13 +1,8 @@
----
-name: everruns-operate
-description: Answer organization-level questions about Everruns. How much was spent and on what, token and tool usage by agent or model, what is broken (health issues, failing turns), who changed what (change history, audit log), and budgets. Use when the user asks about usage, cost, reliability or recent changes across agents rather than about one session. Builds on the everruns skill.
----
-
 # Operate an Everruns organization
 
 Everything here is read-only unless the user asks for a change, so run it with
 MCP `query` or the CLI. Commands are the `everruns` command language (see the
-`everruns-cli` skill); check flags with `--help`.
+[cli.md](cli.md)); check flags with `--help`.
 
 Start broad with a report, then drill into the agents and sessions it points at.
 
@@ -53,7 +48,7 @@ confirm the subject, amount and currency with the user first, then use
    credentials, failing integrations). `everruns health-issues get <id>` explains one.
 2. Failing work: query `turns` or `llm_generations` grouped by `agent_name` for
    errors over the last day, then open a failing session
-   (`everruns-debug-session`).
+   ([debug-session.md](debug-session.md)).
 3. Per-agent checks: `everruns agents health-checks list --help`.
 
 ## Who changed what

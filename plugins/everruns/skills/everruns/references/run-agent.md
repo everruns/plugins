@@ -1,8 +1,3 @@
----
-name: everruns-run-agent
-description: Hand a task to an existing Everruns agent and bring the result back, from a coding agent or chat. Covers picking the agent, writing a self-contained brief, following the session, passing files in and out, questions and approvals that wait on the user, and follow-ups. Use when the user says "ask the X agent", "run X on this", "have Everruns do…", or shares an agent to use. Builds on the everruns skill.
----
-
 # Run an Everruns agent
 
 The user's agents keep working in Everruns after this conversation ends, with
@@ -19,7 +14,7 @@ If the user named one, find its id. Otherwise list candidates and propose one:
   and names; `everruns agents get <id>` shows its instructions and capabilities.
 
 Confirm the choice in one line when it is not obvious. If nothing fits, offer
-to build one (`everruns-build-agent`).
+to build one ([build-agent.md](build-agent.md)).
 
 ## 2. Write the brief
 
@@ -46,8 +41,8 @@ client-side tool or an approval, `paused` was stopped on purpose.
 Open-ended tasks: cap the spend when the user asks for a limit, with
 `everruns sessions create … --budget-limit 5` (US dollars) instead of `agent_run`.
 
-Long tasks: tell the user the session is running, give the link
-(`https://app.everruns.com/sessions/<id>/chat`), and check back rather than
+Long tasks: tell the user the session is running, give the session link
+(the `ui_link` a read returns), and check back rather than
 polling in a tight loop. The session keeps going without you.
 
 ## 4. Questions and approvals
@@ -86,4 +81,4 @@ it did not finish, and why.
   --session <id>` keeps the agent's context.
 - Try a variant without disturbing the original: `everruns sessions fork --help`.
 - Stop a turn that went wrong: `everruns sessions cancel --help`; then see
-  `everruns-debug-session`.
+  [debug-session.md](debug-session.md).

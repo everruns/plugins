@@ -1,11 +1,6 @@
----
-name: everruns-build-agent
-description: Create a new Everruns agent or change an existing one from a plain-language description, then prove it works with a test message. Use when the user asks to make, set up, improve, retarget or fix the behavior of an Everruns agent. Builds on the everruns skill.
----
-
 # Build or change an Everruns agent
 
-Commands below use the `everruns` command language from the `everruns-cli` skill:
+Commands below use the `everruns` command language from the [cli.md](cli.md):
 run them with the CLI, or as the `commands` of MCP `query` (reads) and
 `execute` (changes). Check flags with `--help` before using one.
 
@@ -17,7 +12,7 @@ Get, or propose and confirm, four things before creating anything:
 - **Tools it needs**: web access, files, code execution, a third-party system.
 - **Model**: only if the user cares. Otherwise the organization default applies.
 - **Where it will run**: chat only, or a channel or schedule later (see
-  `everruns-ship-agent`).
+  [ship-agent.md](ship-agent.md)).
 
 If an agent with that purpose may already exist, look first:
 `everruns agents list --search <word>`.
@@ -84,7 +79,7 @@ whole list, so start from the agent's current list (`everruns agents get <id>`).
 
 ## 5. Test it
 
-Send a realistic first message and read the reply, as in `everruns-run-agent`:
+Send a realistic first message and read the reply, as in [run-agent.md](run-agent.md):
 `agent_run` and `session_get_status` over MCP, or `everruns sessions create
 --agent agent_… --title "Smoke test"` then `everruns chat "…" --session
 session_…` in the CLI.
@@ -92,11 +87,11 @@ session_…` in the CLI.
 Check the reply against the purpose from step 1. If the agent used the wrong
 tool or none, adjust instructions or capabilities and test again. Two or three
 rounds is normal. When the agent matters, turn those test messages into an
-eval so later changes are checked too (`everruns-evaluate-agent`).
+eval so later changes are checked too ([evaluate-agent.md](evaluate-agent.md)).
 
 ## 6. Report
 
-Give the user the agent link (`https://app.everruns.com/agents/<id>`), the
+Give the user the agent link (the `ui_link` a read returns), the
 test session link, what the agent can do now, and anything you chose for them
 (model, capabilities). If the agent should live in a repository, continue with
-`everruns-agents-as-files`.
+[agents-as-files.md](agents-as-files.md).

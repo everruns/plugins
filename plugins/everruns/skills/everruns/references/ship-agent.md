@@ -1,11 +1,6 @@
----
-name: everruns-ship-agent
-description: Put an Everruns agent in front of people or systems, by adding and publishing a channel (Slack, AG-UI web chat, Public Chat, A2A, FCP, Voice) or a trigger (schedule, webhook, GitHub event, MCP event). Use when the user wants an agent reachable outside the Everruns app or running on its own.
----
-
 # Ship an Everruns agent
 
-Commands below are the `everruns` command language (see the `everruns-cli` skill).
+Commands below are the `everruns` command language (see the [cli.md](cli.md)).
 Creating and publishing are changes: use the CLI or MCP `execute`, pass
 `--reason`, and confirm with the user before publishing anything public.
 

@@ -1,8 +1,3 @@
----
-name: everruns-evaluate-agent
-description: Prove an Everruns agent does its job and keeps doing it. Build eval cases from real sessions, run them against the agent or another model, compare scores, and score live traffic with observers. Use when the user asks whether an agent works, wants to compare or switch models, check a prompt change for regressions, or watch answer quality over time. Builds on the everruns skill.
----
-
 # Evaluate an Everruns agent
 
 Two tools, for two questions:
@@ -15,7 +10,7 @@ Two tools, for two questions:
   samples completed turns of production sessions and scores them with rules or
   an LLM judge.
 
-Commands below are the `everruns` command language (see the `everruns-cli` skill).
+Commands below are the `everruns` command language (see the [cli.md](cli.md)).
 Creating evals, runs and observers are changes: use MCP `execute` or the CLI.
 Runs and judges spend model credits; say roughly how many sessions a run
 starts before you start it.
@@ -66,9 +61,9 @@ everruns evals runs list --help
 
 - **Model choice**: run the same eval twice with different `model_override`
   values and compare the scores per case.
-- **Prompt change**: run before and after the change (see `everruns-build-agent`).
+- **Prompt change**: run before and after the change (see [build-agent.md](build-agent.md)).
 - Every case is a real session: open a failing one and read it like any other
-  (`everruns-debug-session`).
+  ([debug-session.md](debug-session.md)).
 
 Report a table: case, score before, score after (or model A, model B), and one
 line on what changed. `everruns evals runs share --help` mints a read-only link
@@ -89,8 +84,8 @@ keep it low on busy agents. Eval sessions are never scored by observers.
 
 ## When a case fails
 
-1. Open the case's session and find the cause (`everruns-debug-session`).
-2. Change the agent (`everruns-build-agent`), with `--reason` naming the case.
+1. Open the case's session and find the cause ([debug-session.md](debug-session.md)).
+2. Change the agent ([build-agent.md](build-agent.md)), with `--reason` naming the case.
 3. Run the eval again and report before and after.
 
 A failure from a real session that the agent now handles belongs in the eval

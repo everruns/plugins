@@ -1,26 +1,14 @@
 # Everruns plugin
 
-Lets a coding agent install, build, run, debug and ship [Everruns](https://everruns.com)
-agents. It connects an Everruns MCP server (the demo instance at
-`https://app.everruns.com/mcp` by default; point it at your own install) and adds
-14 skills that load when needed.
+Lets a coding agent build with the [Everruns](https://everruns.com) Framework, install
+Everruns on your own machines, and build, run, debug and ship agents on it. It adds
+the `everruns` skill, whose guides load only when a task needs them, and an Everruns
+MCP connection (the demo instance at `https://app.everruns.com/mcp` by default; point
+it at your own install).
 
 | Skill | Your agent can… |
 |---|---|
-| `everruns` | Understand product concepts, find documentation, and choose the right workflow skill |
-| `everruns-install` | Install, upgrade, check, or remove your own Everruns on this machine, a server, or Kubernetes |
-| `everruns-cli` | Use the CLI and session shell, discover commands, script operations, and verify changes |
-| `everruns-mcp` | Connect through MCP, load shared skills, run sessions, handle questions and connections, and read resources |
-| `everruns-agent-authoring` | Design and revise agent behavior, harnesses, capabilities, identities, packages, and verification |
-| `everruns-run-agent` | Hand a task to an existing agent, follow it, exchange files, and bring back the result |
-| `everruns-build-agent` | Build or improve an agent from a plain-language brief, add knowledge and tools, and smoke-test it |
-| `everruns-debug-session` | Diagnose failed, stalled, or poor-quality sessions and verify fixes |
-| `everruns-evaluate-agent` | Build regression evals, compare models, and score live traffic |
-| `everruns-ship-agent` | Expose agents through channels and triggers, with budgets and controls for stopping them |
-| `everruns-operate` | Investigate organization spending, health, and change history |
-| `everruns-agents-as-files` | Keep agent packages in a repository and validate, compare, import, or export them |
-| `everruns-sdk` | Call hosted agents from Python, TypeScript, or Rust applications |
-| `everruns-framework` | Develop Rust applications that run agents themselves and compose advanced execution hosts |
+| `everruns` | Everything Everruns: the Rust Framework; installing your own Everruns; the CLI, MCP, REST API and SDKs; building, running, debugging, evaluating and shipping agents; spend, health and change history. One guide per task under `references/`, read only when needed |
 
 Claude Code:
 
@@ -33,9 +21,8 @@ Docs: <https://everruns.com/docs/getting-started/use-in-ai-tools/>.
 
 ## Maintaining shared skills
 
-`everruns`, `everruns-cli`, `everruns-mcp`, `everruns-agent-authoring`, `everruns-framework`, `everruns-install` are distributed copies
-of the canonical [Everruns product skills](https://github.com/everruns/everruns/tree/main/skills).
-Sync their complete directories, including references, when updating them.
-The other task guides are maintained in this plugin repository.
+`everruns` is a distributed copy
+of the canonical [`skills/everruns`](https://github.com/everruns/everruns/tree/main/skills/everruns), references included.
+Never edit it here: everruns' skills-sync workflow copies every change.
 Edit skill descriptions in `catalog.json` and regenerate this README and the
 root skills table with `node scripts/build.mjs`.
