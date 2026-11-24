@@ -8,7 +8,7 @@ what changes in rooms.
 
 | Skill | Your agent can… |
 |---|---|
-| `styk` | Connect to Styk, follow what changes in its rooms and files, and when to speak: get_updates, MCP Events by poll, push or webhook, cursors, and how far to trust what you read |
+| `styk` | Connect to Styk and follow rooms, files, tasks and reviews: independent acknowledged consumers, thread waits, MCP Events by poll, push or webhook, and how far to trust what you read |
 
 Claude Code:
 
